@@ -1,0 +1,36 @@
+<header>
+    <nav class="d-flex justify-content-between m-2 mt-4">
+        <% //if(!locals.user){ %>
+        <!-- <button class="btn btn-success" id="btnModalIngresar" >Iniciar sesion</button> -->
+        <%- //include('./login') %>
+        <% //} else { %>
+            <!-- <a href="/perfil" class="btn btn-primary" >Perfil</a>
+            <a href="/api/CerrarSesion" class="btn btn-primary" >Cerrar Sesion</a> -->
+        <% //} %>
+        <nav class="nav justify-content-start">
+            <% if(!locals.user){ %>
+                <button class="nav-link cursor-pointer" id="btnModalIngresar">Iniciar sesion</button>
+                <%- include('./login') %>
+            <% } else { %>
+                <a href="/perfil" class="nav-link" >Perfil</a>
+                <a href="/api/CerrarSesion" class="nav-link" >Cerrar Sesion</a>
+            <% } %>
+        </nav>
+
+        <ul class="nav justify-content-end">
+            <% if(locals.user && !user.isAdmin){ %>
+            <li class="nav-item">
+              <a class="nav-link" id="btnAbrirModalNewProduct" href="#">Nuevo Producto</a>
+              <%- include('./formNewProduct') %>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/products/admin">Administrar Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Permisos</a>
+            </li>
+            <% } %>
+          </ul>
+
+    </nav>
+</header>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head') %>
+
+    <title> EliBaExpress</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+
+    <h1 class="text-center">Editar Producto</h1>
+
+    <section class="card m-3 p-2">
+        <form id="formP1">
+            <div class="mb-3">
+                <label for="inputTitulo" class="form-label">Título</label>
+                <input type="text" class="form-control"  value="<%= product.titulo %>" minlength="5" maxlength="70" id="inputTitulo" placeholder="Titulo del producto">
+            </div>
+
+            <div class="mb-3">
+                <label for="inputDescripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="inputDescripcion" rows="7" placeholder="Descripción"><%= product.descripcion %></textarea>
+            </div>
+
+            <div class="m-3 text-end">
+                <button type="submit" id="btnGuardarP1" class="btn btn-success">Guardar</button>
+            </div>
+
+        </form>
+    </section>
+
+    <section class="card m-3 p-2">
+        <div class="mb-3">
+            <label for="inputFile" class="form-label">Subir Imágenes</label>
+            <input type="file" class="form-control"  id="inputFile" multiple accept="image/*">
+            <div id="feedbackInputFile"> </div>
+        </div>
+
+        <section id="sectImagenes" class="d-flex flex-wrap ">
+            <% product.imagenes.map(img => { %>
+                <div class="position-relative m-1" style="width: fit-content;" >
+                    <img src="/svg/icons8-eliminar.svg" width="25" height="25" class="position-absolute top-0 end-0 rounded-pill p-1" alt="rrr" style="cursor: pointer; background-color: red;" onclick="deleteImagen('<%= img.fileId %>', this)">
+                    <img src=<%= img.url %> class="img-thumbnail" alt="Img" style="max-width: 4cm; max-height: 4cm;">
+                </div>
+            <% }) %>
+        </section>
+
+    </section>
+
+<script src="/js/updateProductDetail.js"></script>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

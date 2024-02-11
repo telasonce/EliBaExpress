@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño EliBaExpress</title>
+    <!-- Boostrap -->
+<link rel="stylesheet" href="/src/public/bootstrap/dist/css/bootstrap.min.css">
+<script src="/src/public/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+    
+    <section>
+        <article class="mx-auto p-1" style="max-width: 20cm;">
+            <form class="border border-dark mb-1 p-1 rounded" id="formProducto">
+
+                <input type="hidden" name="idProducto" value="67">
+                <div class="d-flex flex-wrap  mx-0">
+                    <i class="text-lowercase  opacity-50 h-75" id="categoria">telas | 1288 vistas</i> 
+                    <div class="btn-group w-75 ms-auto" role="group" >
+                        <a href="" target="_blank" class="btn btn-outline-primary border mt-2">Ver</a>
+                        <a href="" target="_blank" class="btn btn-outline-primary border mt-2">Editar</a>
+                        <button id="btnPausarArt" class="btn btn-outline-danger text-center mt-2 border ">Pausar</button>
+                        <button id="btnActivarArt" class="btn btn-outline-success text-center mt-2 border d-none">Activar</button>
+                    </div>
+                    <h5 class="mt-0 d-inline" id="tituloProducto"> Acetato deportivo brilloso importado</h5>
+                </div>
+                <div class=" d-flex justify-content-around mx-0">
+                    <div class="form-floating">
+                        <input type="number" min="0" required="" class="form-control" name="costo" id="inputcosto" value="1600"> <label>Costo</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" name="proveedor" id="inputProveedor" value="importado">
+                        <label>Proveedor</label>
+                    </div>
+                </div>
+        
+                <div id="divPrecios">
+                    <div class="input-group m-1 mb-2" id="divForma">
+                        <input type="text" name="forma" class="form-control" placeholder="Forma">
+                        <div class="position-relative d-inline" style="max-width: 3cm;">
+                            <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-info" id="precio">$1920</span>
+                            <input type="number" name="ganancia" class="form-control" placeholder="% Ganancia">
+                        </div>
+                        <span class="input-group-text p-0 ps-1">
+                            <div class="form-check form-switch mt-0 ">
+                                <input class="form-check-input" checked="" value="1" name="precioactivo" type="checkbox" role="switch">
+                            </div>
+                        </span>
+                        <button class="btn btn-outline-danger px-2 py-1" type="button" id="X">X</button>
+                    </div>
+                </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a></a>
+                        <button type="submit" id="btnActualizar" class="btn btn-secondary border-3">Actualizar</button>
+                        <button class="btn btn-outline-primary m-1 btn-sm" type="button" id="X">+</button>
+                    </div>
+                
+            </form>
+        </article>
+    </section>
+
+
+    <section class="card m-3 p-2">
+        <form action="">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Título</label>
+                <input type="text" class="form-control" minlength="5" maxlength="70" id="inputTitulo" placeholder="Titulo del producto">
+            </div>
+
+            <div class="mb-3">
+                <label for="inputDescripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="inputDescripcion" rows="7"></textarea>
+            </div>
+
+            <div class="m-3 text-end">
+                <button type="button" class="btn btn-success">Guardar</button>
+            </div>
+
+        </form>
+    </section>
+
+    <section class="card m-3 p-2">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Subir Imágenes</label>
+            <input type="file" class="form-control"  id="inputFile">
+        </div>
+
+        <section>
+            <div class="position-relative" style="width: fit-content;">
+                <img src="./src/public/svg/icons8-eliminar.svg" width="25" height="25" class="position-absolute top-0 end-0 rounded-pill p-1" alt="rrr" style="cursor: pointer; background-color: red;">
+                <img src="https://ik.imagekit.io/EliBaExpress/1707352484787_ZXv_bzQWA.jpg?updatedAt=1707352488216" class="img-thumbnail" alt="Img" style="max-width: 4cm; max-height: 4cm;">
+            </div>
+            
+        </section>
+        <form action="">
+
+            <div class="mb-3">
+                <textarea class="form-control" id="inputTextOrdenImagenes" rows="7"></textarea>
+            </div>
+
+            <div class="m-3 text-end">
+                <button type="button" class="btn btn-success">Guardar</button>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <div class="modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Nuevo Producto</h5>
+                </div>
+                <div class="modal-body">
+                  
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Título</label>
+                        <input type="text" class="form-control" minlength="5" maxlength="70" id="inputTituloCrearProducto" placeholder="Titulo del producto">
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="btnCerrarModalCrearProducto">Cancelar</button>
+                  <button type="button" id="btnCrearNuevoProducto" class="btn btn-primary">Guardar Nuevo Producto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<section>
+    <div class="modal" tabindex="-1" id="modalNewProduct">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Nuevo Producto</h5>
+            </div>
+            <div class="modal-body">
+              
+                <div class="mb-3">
+                    <label for="inputTituloNewProduct" class="form-label">Título</label>
+                    <input type="text" class="form-control" minlength="5" maxlength="70" id="inputTituloNewProduct" placeholder="Titulo del producto">
+                </div>
+                <p class="text-warning" id="feedbackModalNewProduct"></p>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="btnCerrarModalNewProduct">Cancelar</button>
+              <button type="button" id="btnCrearNuevoProducto" class="btn btn-primary">Guardar Nuevo Producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+
+
+<script>
+    let btnAbrirModalNewProduct = document.querySelector('#btnAbrirModalNewProduct')
+    let btnCerrarModalNewProduct = document.querySelector('#btnCerrarModalNewProduct')
+    let btnCrearNuevoProducto = document.querySelector('#btnCrearNuevoProducto')
+    let inputTituloNewProduct = document.querySelector('#inputTituloNewProduct')
+    let modalNewProduct = document.querySelector('#modalNewProduct')
+    let feedbackModalNewProduct = document.querySelector('#feedbackModalNewProduct')
+    var loading1 = `  <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> <span class="visually-hidden" role="status"></span>`
+
+    btnAbrirModalNewProduct.onclick = ()=>{
+        modalNewProduct.classList.add('d-block')
+    }
+    btnCerrarModalNewProduct.onclick = ()=>{
+        modalNewProduct.classList.remove('d-block')
+    }
+    inputTituloNewProduct.onkeydown = ()=>{
+        if (inputTituloNewProduct.value.length >= 5 && inputTituloNewProduct.value.length <= 70 ) {
+            inputTituloNewProduct.classList.add('is-valid')
+            inputTituloNewProduct.classList.remove('is-invalid')
+        } else {
+            inputTituloNewProduct.classList.add('is-invalid')
+            inputTituloNewProduct.classList.remove('is-valid')
+        }
+    }
+    btnCrearNuevoProducto.addEventListener('click', async e=>{
+        e.preventDefault()
+        if (inputTituloNewProduct.value.length >= 5 && inputTituloNewProduct.value.length <= 70) {
+            btnCrearNuevoProducto.innerHTML = loading1
+            btnCrearNuevoProducto.disabled = true
+            inputTituloNewProduct.disabled = true
+            feedbackModalNewProduct.textContent = 'Guardando...'
+            try {
+                let dataProduct = {titulo: inputTituloNewProduct.value}
+                const res = await fetch( '/api/products/create', {
+                    method: 'POST', headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({dataProduct }),  
+                });
+                const response = await res.json();
+                console.log(response)
+                feedbackModalNewProduct.innerHTML = `Producto Guardado:   ${inputTituloNewProduct.value} -  <a href="/products/update/${response.data.insertedIds[0]}/" target="_blank">Editar</a>`
+                
+            } catch (error) {
+                feedbackModalNewProduct.textContent = error
+            }
+            inputTituloNewProduct.value = ''
+            inputTituloNewProduct.disabled = false
+            btnCrearNuevoProducto.disabled = false
+            btnCrearNuevoProducto.innerHTML = 'Guardar Nuevo Producto'
+        }
+    })
+</script>

@@ -1,0 +1,145 @@
+
+const mongoDb = require('../../database/configMongoDb')
+const ObjectId = require('mongodb').ObjectId;
+
+const imagekit = require('../../functions/imageKit')
+
+async function resultdbTest() {
+    // console.log( await ( mongoDb.insertDocuments('products',[{hello:'banana'},{hellowin:'frita',lopez:'gomez'}] ) ) )
+    // console.log( await mongoDb.updateDocuments('products',{hello:'banana'},{hellowin:'frita'}) )
+    // console.log( await ( mongoDb.deleteDocuments('products',{_id: new ObjectId("65b98c20c1542a001268e78e")}) ) )
+    console.log( await mongoDb.findDocuments('products') )
+    console.log( await mongoDb.finalizarConexion() )
+}
+// resultdbTest()
+
+module.exports = {
+    getAllProductsActive: async(req, res) => {
+        try {
+            let products = await mongoDb.findDocuments('products', {isActive:true})
+            res.json({ message:'Get pruducts', status:'ok', data: products })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    
+    getAllProductsAdmin: async(req, res) => {
+        try {
+            let products = await mongoDb.findDocuments('products')
+            res.json({ message:'Get pruducts admin', status:'ok', data: products })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    reactivarProducto: async(req, res) => {
+        let idProduct = String(req.body.idProduct)
+        try {
+            let products = await mongoDb.updateDocuments('products',{_id: new ObjectId(idProduct)}, {isActive:true})
+            res.json({ message:'Activar product', status:'ok', data: products })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    pausarProducto: async(req, res) => {
+        let idProduct = String(req.body.idProduct)
+        try {
+            let products = await mongoDb.updateDocuments('products',{_id: new ObjectId(idProduct)}, {isActive:false})
+            res.json({ message:'Pausar product', status:'ok', data: products , idProduct})
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    
+    productsGetById: async(req, res) => {
+        let idProduct = String(req.params.idProduct)
+
+        try {
+            let products = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
+            res.json({ message:'Get pruduct by Id', status:'ok', data: products })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    
+    productsCreate: async(req, res) => {
+        let dataProduct = req.body.dataProduct
+        let data = {
+            titulo: dataProduct.titulo,
+            descripcion: '',
+            isActive: false,
+            imagenes: [],
+            vistas: 0,
+            costo: 0,
+            ganancias: [],
+            updatedAt: Date.now()
+        }
+        try {
+            let response = await mongoDb.insertDocuments('products', [data])
+            console.log(response)
+            res.json({ message:'Product Created', status:'ok', data: response })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    
+    productsUpdateTituloDescripcion: async(req, res) => {
+        let idProduct = String(req.body.idProduct)
+        let dataProduct = req.body.dataProduct
+        let data = {
+            titulo: dataProduct.titulo,
+            descripcion: dataProduct.descripcion,
+            updatedAt: Date.now(),
+            // costo: dataProduct.costo,
+            // ganancias: dataProduct.ganancias,
+            // isActive: dataProduct.isActive
+        }
+
+        try {
+            let response = await mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, data)
+            res.json({ message:'Product updated', status:'ok', data: response })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    
+    updateCostosYganancias: async(req, res) => {
+        let idProduct = String(req.body.data.idProduct)
+        let dataProduct = req.body.data
+        let data = {
+            updatedAt: Date.now(),
+            costo: dataProduct.costo,
+            ganancias: dataProduct.ganancias,
+            proveedor: dataProduct.proveedor,
+        }
+
+        try {
+            let response = await mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, data)
+            res.json({ message:'Product updated', status:'ok', data: response })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
+        }
+
+    },
+    
+    productsDelete: async(req, res) => {
+        let idProduct = String(req.body.idProduct)
+
+        // antes eliminar las imagenes!
+        try {
+            let products = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
+            res.json({ message:'Product deleted', status:'ok', data: response })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    
+
+}

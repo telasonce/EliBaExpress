@@ -1,0 +1,80 @@
+
+<div class="modal" id="divFormIngresar" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ingresar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btncerrar"></button>
+        </div>
+        <div id="bodyModalIngresar" class="modal-body">
+          <div class="alert alert-success d-none" role="alert" id="divAlertaVerificado"> </div>
+
+          <!-- aca va form   needs-validation was-validated -->
+          <form class="row g-2 " id="formIngreso" >
+            <div class="col-12 text-center">
+              <p class="fs-2">Ingresar a mi cuenta</p>
+            </div>
+            <div class="alert alert-info d-none" role="alert" id="divAlertaIngreso"> </div>
+            
+            <div class="col-md-12">
+              <label for="inputEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="inputEmailLog" value="<%= locals.emailGuardado || '' %>" placeholder="email@my.com">
+            </div>
+            
+            <div class="col-md-12">
+              <label for="inputPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="inputPassword" placeholder="******">
+            </div>
+            
+            
+            <div class="col-12 text-center">
+              <button class="col-10 btn btn-primary d-none" id="btnNewPassword" type="submit">Guardar Contraseña Nueva</button>
+              <div id="feedbackbtnNewPassword" class="text-success d-none">Su contraseña será encriptada de manera segura</div>
+            </div>
+            <div class="col-12 text-center">
+              <button class="col-6 btn btn-primary" id="btnIniciarSesion" type="submit">Inicar sesion</button>
+            </div>
+            <div class="col-12 text-center">
+              <button class="col-7 btn btn-secondary btn-sm" id="btnRecuperarCont" type="submit">Recuperar contraseña</button>
+            </div>
+
+            <div class="card" id="divTextoRegistro">
+              <div class="card-body">
+                Para registrarte debes ingresar un email válido, al cual te enviaremos un link de verificación, para luego puedas crearte una contraseña.
+                <div class="input-group col-12 mb-3">
+                  <input type="email" class="form-control" id="inputEmailRegis" placeholder="email">
+                  <button class="btn btn-primary" type="submit" id="btnRegistrarme">Registrarme</button>
+                </div>
+            
+              </div>
+            </div>
+
+          </form>
+
+              <form  id="formGuardarNombLog" class="my-2 d-none">
+                <div class="card">
+
+                  <div class="card-body">
+                    Escribe un nombre para que puedas identificar este dispositivo
+                    <div class="input-group col-12 mb-3">
+                      <input type="text" required minlength="4" class="form-control" id="inputNomblog" placeholder="cel samsung sergio">
+                      <button class="btn btn-primary" type="submit" id="btnGuardarNombLog">Guardar</button>
+                    </div>
+
+                  </div> 
+                </div>
+              </form>
+              
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCerrar2">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<% if( !locals.user) { %>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeYbmIpAAAAAPklcozZY4agcs1RQ3jfNQWyqi48"></script>
+
+    <script src="/js/login.js"></script>
+<% } %>
