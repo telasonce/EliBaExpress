@@ -76,6 +76,7 @@ module.exports = {
             vistas: 0,
             costo: 0,
             ganancias: [],
+            etiquetas: '',
             updatedAt: Date.now()
         }
         try {
@@ -95,9 +96,7 @@ module.exports = {
             titulo: dataProduct.titulo,
             descripcion: dataProduct.descripcion,
             updatedAt: Date.now(),
-            // costo: dataProduct.costo,
-            // ganancias: dataProduct.ganancias,
-            // isActive: dataProduct.isActive
+            etiquetas: dataProduct.etiquetas
         }
 
         try {
@@ -116,7 +115,7 @@ module.exports = {
             updatedAt: Date.now(),
             costo: dataProduct.costo,
             ganancias: dataProduct.ganancias,
-            proveedor: dataProduct.proveedor,
+            proveedor: dataProduct.proveedor
         }
 
         try {

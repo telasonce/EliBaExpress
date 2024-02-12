@@ -17,10 +17,17 @@
                 <label for="inputTitulo" class="form-label">Título</label>
                 <input type="text" class="form-control"  value="<%= product.titulo %>" minlength="5" maxlength="70" id="inputTitulo" placeholder="Titulo del producto">
             </div>
-
+            
+            
             <div class="mb-3">
                 <label for="inputDescripcion" class="form-label">Descripción</label>
                 <textarea class="form-control" id="inputDescripcion" rows="7" placeholder="Descripción"><%= product.descripcion %></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="inputEtiquetas" class="form-label">Etiquetas</label>
+                <input type="text" class="form-control"  value="<%= product.etiquetas %>" minlength="5" maxlength="200" id="inputEtiquetas" placeholder="en oferta, baratísimo, últimas unidades, marketing!">
+                <label for="inputEtiquetas" class="form-label text-secondary">Escriba etiquetas, separe por ',' coma cada una.</label>
             </div>
 
             <div class="m-3 text-end">

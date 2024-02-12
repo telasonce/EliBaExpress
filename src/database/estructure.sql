@@ -13,11 +13,12 @@ products = {
     titulo: dataProduct.titulo,
     descripcion: dataProduct.descripcion,
     isActive: false,
-    imagenes: [],
+    imagenes: [{url,fileId}],
     vistas: 0,
     costo: 0,
-    ganancias: [],
+    ganancias: [{forma, ganancia, activo, precio}],
     updatedAt: Date.now(),
-    etiqueta:'',
-    categoria:''
+    etiquetas:'', // por cada ',' lo separa
+    categoria:'',
+    proveedor: ''
 }

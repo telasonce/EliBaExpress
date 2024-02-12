@@ -3,22 +3,55 @@
 <head>
     <%- include('../partials/head') %>
 
-    <title> EliBaExpress</title>
+    <title>EliBaExpress</title>
 </head>
 <body>
     <%- include('../partials/header') %>
 
+    <div class="mx-auto w-75 alert alert-secondary <%= product.isActive ? 'd-none' : '' %>" role="alert"> El producto se encuentra temporalmente pausado.</div>
 
-    <h1 class="text-center">Product Detail</h1>
-
-    <div class="card mb-3">
-        <img src="..." class="card-img-top" alt="...">
+    <div class="card mx-auto my-3 p-1" style="max-width: 20cm;">
+      <section class="d-flex justify-content-start table-responsive">
+        <% product.imagenes.forEach(imagen => { %>
+          <img src="<%= imagen.url %>"  class="img-thumbnail m-3" alt="imgProduct"  style="max-width: 7cm; max-height: 7cm;">
+        <% }) %>
+      </section>
         <div class="card-body">
+          <div class="d-flex mb-2 justify-content-start flex-nowrap align-items-center table-responsive">
+            <% product.etiquetas.trim().split(',').forEach( etiqueta => { %>
+              <% if (etiqueta.length >= 2) { %>
+                <small class="text-uppercase bg-danger rounded-pill p-2 m-1 text-white" style="min-width: fit-content;"><%=  etiqueta %></small>
+                <% } %>
+            <% }) %>
+          </div>
+
           <h5 class="card-title"><%= product.titulo %></h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+
+              <p class="card-text" id="descripcionProducto"><%= product.descripcion %></p>
+              <hr>
+              <section style="max-width: 80%;" class="mx-auto mb-3" id="sectPrecios">
+                  
+                  <h5 class="text-underline"> Precios </h5>
+                  
+                  <% product.ganancias.forEach( forma => { %>
+                    <% if (forma.activo) { %>
+                      <p class="card-text mb-1">--<i> <%= forma.forma %></i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
+                        <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
+                      </svg> <b><%= forma.precio %></b></p>
+                      <% } %>
+                    <% }) %>
+                  
+                  
+                  <div class="text-end mt-4">
+                      <a href="http://" class="btn btn-outline-success btn-lg" target="_blank" rel="noopener noreferrer">Comprar</a>
+                  </div>
+                  <hr>
+              </section>
+
+          <p class="card-text text-body-secondary mb-0"><small class="text-body-secondary">Última actualización </small> <%= new Date(product.updatedAt) %> </p>
+          <p class="card-text text-body-secondary"><small class="text-body-secondary">Vistas </small> <%= product.vistas %> </p>
         </div>
-      </div>
+  </div>
 
     <%- include('../partials/footer') %>
 

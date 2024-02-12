@@ -4,10 +4,11 @@ let loading2 = `  <span class="spinner-border spinner-border-sm" aria-hidden="tr
 let idProduct = window.location.pathname.split('/')[3]
 // console.log(idProduct)
 
-// Form actualizar titulo y descripcion
+// Form actualizar titulo y descripcion y etiquetas
 let formP1 = document.querySelector('#formP1')
 let inputTitulo = document.querySelector('#inputTitulo')
 let inputDescripcion = document.querySelector('#inputDescripcion')
+let inputEtiquetas = document.querySelector('#inputEtiquetas')
 let btnGuardarP1 = document.querySelector('#btnGuardarP1')
 
 formP1.addEventListener('submit', async e=>{
@@ -16,7 +17,7 @@ formP1.addEventListener('submit', async e=>{
     btnGuardarP1.disabled = true
 
     try {
-        let dataProduct = {titulo: inputTitulo.value, descripcion: inputDescripcion.value}
+        let dataProduct = {titulo: inputTitulo.value, descripcion: inputDescripcion.value, etiquetas:inputEtiquetas.value}
         const res = await fetch( '/api/products/update', {
             method: 'POST', headers: { "Content-Type": "application/json" },
             body: JSON.stringify({dataProduct, idProduct }),  

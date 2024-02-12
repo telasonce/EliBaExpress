@@ -255,6 +255,19 @@ let mostrarArticulos = async function() {
             }
         }
 
+        inputCosto.addEventListener('keyup', e=>{
+            let divsFormas = div.querySelectorAll('#divForma')
+            for (let index = 0; index < divsFormas.length; index++) {
+                const divForma = divsFormas[index];
+                
+                let inputGanancia = divForma.querySelector('#ganancia')
+                let labelPrecio = divForma.querySelector('#precio')
+                labelPrecio.innerHTML = '$' + Math.round(inputCosto.value * ( (inputGanancia.value / 100) + 1 ))
+            }
+
+            btnActualizar.innerHTML = 'Actualizar'
+        })
+
         formProducto.onsubmit = async function (e) { 
             e.preventDefault()
 
@@ -272,10 +285,11 @@ let mostrarArticulos = async function() {
                 for (let index = 0; index < divsForma.length; index++) {
                     const element = divsForma[index];
                     let forma = element.querySelector('#forma').value
+                    let precio = element.querySelector('#precio').innerHTML
                     let ganancia = element.querySelector('#ganancia').value
                     let precioactivo = element.querySelector('#precioactivo').checked ? true : false
                     objdata.ganancias.push({
-                        forma, ganancia, activo: precioactivo
+                        forma, ganancia, activo: precioactivo, precio
                     })
                 }
             }

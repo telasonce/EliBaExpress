@@ -33,7 +33,7 @@ module.exports = {
             console.log(error)
         }
         if (product.length > 0) {  product = product[0] }
-        // mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, {vistas:product.vistas+1})
+        mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, {vistas:product.vistas+1})
         res.render('products/detailProduct', { user:req.session.userLogged , product})
     },
 
