@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head') %>
+
+    <title>Administrar Usuarios - EliBaExpress</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+ 
+        <h1 class="text-center">Administrar Usuarios</h1>
+
+        <section>
+            <table class="table align-middle mb-0 table-light">
+                <thead class="">
+                  <tr class="table-secondary">
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Bloquear / Desloquear</th>
+                    <th>Asignar Administrador</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td>
+                            <div class="d-flex align-items-center">
+                                <p class="fw-bold mb-1 ms-1"> <%= user.verificado ? '✓' : 'x' %></p>
+                                <p class="text-muted mb-0 ms-2"><%= user.email %></p>
+                            </div>
+                            </td>
+                            <td>
+                            <p class="fw-normal mb-1 text-success <%= user.isActive ? '' : 'd-none' %>">Activo</p>
+                            <p class="fw-normal mb-1 text-danger <%= user.isActive ? 'd-none' : '' %>">Bloqueado</p>
+                            <p class="fw-normal mb-1 text-warning bg-success px-2 rounded-pill <%= user.isAdmin ? '' : 'd-none' %>">Administrador</p>
+                            </td>
+                            <td class="table-info">
+                            <button type="button" id="btnActivar" class="btn btn-success btn-sm <%= user.isActive ? 'd-none' : '' %>" onclick="activarUsuario(this,`<%= user._id %>`)">Activar</button>
+                            <button type="button" id="btnBloquear" class="btn btn-danger btn-sm <%= user.isActive ? '' : 'd-none' %>" onclick="bloquearUsuario(this,`<%= user._id %>`)">Bloquear</button>
+                
+                            </td>
+                            <td class="table-info">
+                            <button type="button" id="btnAdministrador" class="btn btn-warning btn-sm <%= user.isAdmin ? 'd-none' : '' %>" onclick="asignarAdministradorUsuario(this,`<%= user._id %>`)">Asig. Administrador</button>
+                            <button type="button" id="btnVisitante" class="btn btn-danger btn-sm <%= user.isAdmin ? '' : 'd-none' %>" onclick="desasignarAdministradorUsuario(this,`<%= user._id %>`)">Asig. Visitante </button>
+                
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+        </section>
+
+        <script src="/js/administrarUsuarios.js"></script>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

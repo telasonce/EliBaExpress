@@ -63,7 +63,7 @@
                 });
                 const response = await res.json();
                 console.log(response)
-                feedbackModalNewProduct.innerHTML = `Producto Guardado:   ${inputTituloNewProduct.value} -  <a href="/products/update/${response.data.insertedIds[0]}/" target="_blank">Editar</a>`
+                feedbackModalNewProduct.innerHTML = `Producto Guardado:   ${inputTituloNewProduct.value} -  <a href="/products/admin/update/${response.data.insertedIds[0]}/" target="_blank">Editar</a>`
                 
             } catch (error) {
                 feedbackModalNewProduct.textContent = error

@@ -1,36 +1,73 @@
 <header>
-    <nav class="d-flex justify-content-between m-2 mt-4">
-        <% //if(!locals.user){ %>
-        <!-- <button class="btn btn-success" id="btnModalIngresar" >Iniciar sesion</button> -->
-        <%- //include('./login') %>
-        <% //} else { %>
-            <!-- <a href="/perfil" class="btn btn-primary" >Perfil</a>
-            <a href="/api/CerrarSesion" class="btn btn-primary" >Cerrar Sesion</a> -->
-        <% //} %>
-        <nav class="nav justify-content-start">
+  <div class="text-center mx-auto" style="max-height: 7cm; max-width: 7cm; margin-top: 2cm;">
+    <a href="/"><img src="/img/logo/EliBaExpress-logo.png" class="rounded mx-auto w-100" alt="logo"></a>
+  </div>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+      <div class="container-fluid p-1">
+        <form class="d-flex" role="search">
+          <div class="input-group my-1">
+            <span class="input-group-text p-1" style="width: 38px; height: 38px;"><a href="/"><img src="/img/logo/EliBaExpress-logo-E.png" alt="E" class="w-100"></a></span>
+
+            <input type="search" class="form-control" placeholder="Buscar" aria-label="Username" aria-describedby="basic-addon1">
+            <button class="btn btn-outline-success btn-sm" type="submit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+        <button class="navbar-toggler collapsed px-2 py-1 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="ms-5 navbar-collapse collapse" id="navbarMenu">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            <!-- <li class="vr d-none d-lg-block"></li> -->
+            
             <% if(!locals.user){ %>
-                <button class="nav-link cursor-pointer" id="btnModalIngresar">Iniciar sesion</button>
-                <%- include('./login') %>
+            <li class="nav-item">
+              <button class="nav-link cursor-pointer" id="btnModalIngresar">Iniciar sesión</button>
+            </li>
+            <%- include('./login') %>
             <% } else { %>
-                <a href="/perfil" class="nav-link" >Perfil</a>
-                <a href="/api/CerrarSesion" class="nav-link" >Cerrar Sesion</a>
-            <% } %>
-        </nav>
-
-        <ul class="nav justify-content-end">
-            <% if(locals.user && !user.isAdmin){ %>
+              <!-- <li class=" d-none d-lg-block">|</li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="/perfil">Prefil</a>
+              </li>
+              <li class=" d-none d-lg-block my-auto">-</li>
+              <li class="nav-item">
+                <a class="nav-link" href="/api/CerrarSesion">Cerrar sesión</a>
+              </li>
+              <% } %>
+            <li class="vr d-none d-lg-block"></li>
             <li class="nav-item">
-              <a class="nav-link" id="btnAbrirModalNewProduct" href="#">Nuevo Producto</a>
-              <%- include('./formNewProduct') %>
+              <a class="nav-link" href="/products">Nuestros productos</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/products/admin">Administrar Productos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Permisos</a>
-            </li>
-            <% } %>
           </ul>
+        
+          <% if(locals.user && user.isAdmin){ %>
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
+            
+            <hr>
+            <li class="nav-item">
+              <a class="nav-link cursor-pointer " href="#" id="btnAbrirModalNewProduct">Nueva Publicación</a>
+            </li>
+            <%- include('./formNewProduct') %>
 
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/products/admin" target="_blank">Administrar Publicaciones </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" href="/admin/administrarUsuarios">Permisos</a>
+            </li>
+          </ul>
+          <% } %>
+
+        </div>
+      </div>
     </nav>
+
+
 </header>

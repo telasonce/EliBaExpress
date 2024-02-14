@@ -25,14 +25,21 @@ module.exports = {
 
     detailProduct: async(req, res) => {
         let idProduct = String(req.params.idProduct)
-        let product = []
+        let product = null
+
+        if(idProduct.length != 24 ){
+            res.render('products/detailProduct', { user:req.session.userLogged , product:null})
+            return
+        }
+
          try {
             product = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
-            console.log(product)
+            // console.log(product)
         } catch (error) {
             console.log(error)
         }
         if (product.length > 0) {  product = product[0] }
+        if(!product.vistas){product.vistas = 0}
         mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, {vistas:product.vistas+1})
         res.render('products/detailProduct', { user:req.session.userLogged , product})
     },

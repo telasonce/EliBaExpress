@@ -38,7 +38,7 @@ let btnNewPassword = document.querySelector('#btnNewPassword')
 
 // bodyModalIngresar.innerHTML = htmlLogin
 
-divFormIngresar.classList.add('d-block') // se abre al ingresar
+// divFormIngresar.classList.add('d-block') // se abre al ingresar
 
 btnModalIngresar.addEventListener('click', async e =>{
     divFormIngresar.classList.add('d-block')

@@ -3,15 +3,68 @@
 <head>
     <%- include('../partials/head') %>
 
-    <title> EliBaExpress</title>
+    <title>Productos EliBaExpress</title>
 </head>
 <body>
     <%- include('../partials/header') %>
 
 
-    <h1 class="text-center">Products</h1>
+    <div class="mx-auto mt-5 mb-4" style="max-width: 20cm;">
+      <h1 class="ms-3">Nuestros Productos</h1>
+    </div>
 
-
+    <% products.forEach(product => { %>
+        <div class="card mx-auto my-3 p-1" style="max-width: 20cm;">
+            <section class="text-center">
+              <% if(product.imagenes.length >= 1){  %>
+                <img src="<%= product.imagenes[0].url %>"  class="img-thumbnail m-3" alt="imgProduct"  style="max-width: 7cm; max-height: 7cm;">
+              <% } %>
+            </section>
+              <div class="card-body position-relative">
+                <div class="d-flex mb-2 justify-content-start flex-nowrap align-items-center table-responsive">
+                  <% product.etiquetas && product.etiquetas.trim().split(',').forEach( etiqueta => { %>
+                    <% if (etiqueta.length >= 2) { %>
+                      <small class="text-uppercase bg-danger rounded-pill p-2 m-1 text-white" style="min-width: fit-content;"><%=  etiqueta %></small>
+                      <% } %>
+                  <% }) %>
+                </div>
+      
+                <section style="max-width: 80%;" class="mx-auto mb-3 sticky-top">
+                    <div class="text-end mt-4">
+                        <a href="/products/detail/<%= product._id %>/?t=<%= product.titulo.replaceAll(' ', '-').replaceAll('/','-') %>" class="btn btn-outline-primary btn-lg" target="_blank" rel="noopener noreferrer">VER</a>
+                        <a href="https://wa.me/5491130201084/?text=<%=  encodeURIComponent(`http://localhost:3000/products/detail/${product._id}/?t=${product.titulo.replaceAll(' ', '-').replaceAll('/','-')}\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!`)%> " class="btn btn-outline-success btn-lg" target="_blank" rel="noopener noreferrer">Comprar</a>
+                    </div>
+                </section>
+                <h5 class="card-title"><%= product.titulo %></h5>
+                
+                <p class="card-text text-truncate" id="descripcionProducto"><%= product.descripcion %></p>
+                    
+                <section style="max-width: 80%;  " class="mx-auto mb-1 d-none" id="sectPrecios">
+                        <hr class="<%= product.ganancias.length == 0 ? 'd-none' : '' %> w-75">
+                        
+                        <h5 class="text-underline <%= product.ganancias.length == 0 ? 'd-none' : '' %>"> Precios </h5>
+                        
+                        <% product.ganancias.forEach( forma => { %>
+                          <% if (forma.activo) { %>
+                            <p class="card-text mb-1">--<i> <%= forma.forma %></i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
+                              <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
+                            </svg> <b><%= forma.precio %></b></p>
+                            <% } %>
+                          <% }) %>
+                        
+                </section>
+                <a style="cursor: pointer;" class="text-primary" onclick="verMas(this)">Ver Más</a>
+                
+              </div>
+          </div>
+    <% }) %>
+    <script>
+        function verMas(e) {
+            e.innerHTML == 'Ver Más' ? e.innerHTML = 'Ver Menos' : e.innerHTML = 'Ver Más'
+            e.parentElement.querySelector('#descripcionProducto').classList.toggle('text-truncate')
+            e.parentElement.querySelector('#sectPrecios').classList.toggle('d-none')
+        }
+    </script>
     <%- include('../partials/footer') %>
 
 </body>

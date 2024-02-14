@@ -64,8 +64,8 @@ let mostrarArticulos = async function() {
             <div class="d-flex flex-wrap  mx-0">
                 <i class="text-lowercase  opacity-50 h-75" id="categoria">${articulo.categoria || ''} | ${articulo.vistas} vistas</i> 
                 <div class="btn-group w-75 ms-auto" role="group" >
-                    <a href="/products/detail/${articulo._id}/" target="_blank" class="btn btn-outline-primary border mt-2">Ver</a>
-                    <a href="/products/update/${articulo._id}/" target="_blank" class="btn btn-outline-primary border mt-2">Editar</a>
+                    <a href="/products/detail/${articulo._id}/?t=${articulo.titulo.replaceAll(' ', '-').replaceAll('/','-')} " target="_blank" class="btn btn-outline-primary border mt-2">Ver</a>
+                    <a href="/products/admin/update/${articulo._id}/" target="_blank" class="btn btn-outline-primary border mt-2">Editar</a>
                     <button id="btnPausarArt" class="btn btn-outline-danger text-center mt-2 border ${articulo.isActive? '':'d-none'}">Pausar</button>
                     <button id="btnActivarArt" class="btn btn-outline-success text-center mt-2 border ${articulo.isActive ? 'd-none' : ''}">Activar</button>
                 </div>
@@ -93,70 +93,6 @@ let mostrarArticulos = async function() {
     </article>
         `
 
-    //     div.innerHTML = `
-    //     <form class="border border-dark mb-1 p-1 rounded" id="formProducto">
-
-    //     <input type="hidden" name="idArticulo" value="${articulo.id}">
-    //     <div class="row g-2  mx-0">
-    //         <i class="text-lowercase text-white bg-dark opacity-50 w-50" id="categoria">${articulo.categoria} | ${articulo.vistas} <i class="fa-regular fa-eye"></i></i> 
-    //         <a class="w-25 opacity-50 text-center text-info bg-dark" href="/products/detail/${articulo.id}/${articulo.titulo.replaceAll('/','').split(' ').join('-')}" target="_blank">Ver</a> 
-    //         <a class="w-25 opacity-50 text-end text-info bg-dark" href="/admin/editProduct/${articulo.id}/" target="_blank">Editar</a> 
-    //         <h5 class="mt-0 d-inline" id="tituloArticulo" > ${articulo.titulo}</h5>
-    //         <div class="form-check form-switch mt-0 ms-1 col">
-    //             <input class="form-check-input" ${articulo.precioactivo == 1 ? 'checked' : ''} value="1" name="precioactivo" type="checkbox" role="switch" id="precioactivo${articulo.id}">
-    //             <label class="form-check-label" for="precioactivo${articulo.id}">Precio Activo</label>
-    //         </div>
-    //         <div class="form-check form-switch mt-0 ms-2 mb-2 col">
-    //             <input class="form-check-input" ${articulo.ventaonline == 1 ? 'checked' : ''} value="1" name="ventaonline" type="checkbox" role="switch" id="ventaonline${articulo.id}">
-    //             <label class="form-check-label" for="ventaonline${articulo.id}">Venta Online</label>
-    //         </div>
-    //     </div>
-    //     <div class="row g-3 mx-0">
-    //         <div class="col"><div class="form-floating">
-    //                 <input type="number" min=0 required class="form-control" name="costo" id="inputcosto" value="${articulo.costo}"> <label>Costo</label>
-    //             </div></div>
-
-    //         <div class="col input-group position-relative">
-    //             <div class="form-floating">
-    //                 <input type="number" class="form-control" name="porcentajebarrani" min=0 required id="porcentajebarrani" value="${articulo.porcentajebarrani}">
-    //                 <label class="p-2 mt-2">% Barrani</label>
-    //             </div>
-    //             <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger" id="precioBarrani" >
-    //                 $250<span class="visually-hidden"></span></span>
-    //         </div>
-
-    //         <div class="col input-group position-relative">
-    //             <div class="form-floating">
-    //                 <input type="number" class="form-control" name="porcentajefinal" min=0 required id="porcentajefinal" value="${articulo.porcentajefinal}">
-    //                 <label class="p-2 mt-2">% Final</label>
-    //             </div>
-    //             <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger" id="precioFinal" >
-    //                 $290<span class="visually-hidden"></span></span>
-    //         </div>
-
-    //     </div>
-
-    //     <div class="row g-3 mx-0">
-    //         <div class="col">
-    //             <div class="form-floating">
-    //                 <input type="text" class="form-control" name="proveedor" id="inputProveedor" value="${articulo.proveedor}">
-    //                 <label>Proveedor</label>
-    //             </div>
-    //         </div>
-
-    //         <div class="col text-center mt-4">
-    //             <button type="submit" id="btnActualizar" class="btn btn-secondary border-3">Actualizar</button>
-    //         </div>
-
-    //         <div class="col">
-    //             <button id="btnPausarArt" class="btn btn-outline-danger text-center mt-2 border ${articulo.isactive == 1 ? '' : 'd-none'}" >Pausar Articulo</button>
-    //             <button id="btnActivarArt" class="btn btn-outline-success text-center mt-2 border ${articulo.isactive == 1 ? 'd-none' : ''}" >Activar Articulo</button>
-    //         </div>
-
-    //     </div>
-    //     <hr>
-    // </form>
-    //     `
         let formProducto = div.querySelector('#formProducto')
         let btnActualizar = div.querySelector('#btnActualizar')
         let btnPausarArt = div.querySelector('#btnPausarArt')

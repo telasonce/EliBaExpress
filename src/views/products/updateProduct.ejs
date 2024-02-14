@@ -3,7 +3,7 @@
 <head>
     <%- include('../partials/head') %>
 
-    <title> EliBaExpress</title>
+    <title>Editar - <%= product && product.titulo || '' %>- EliBaExpress</title>
 </head>
 <body>
     <%- include('../partials/header') %>
@@ -11,7 +11,7 @@
 
     <h1 class="text-center">Editar Producto</h1>
 
-    <section class="card m-3 p-2">
+    <section class="card m-3 p-2 mx-auto" style="max-width: 25cm;">
         <form id="formP1">
             <div class="mb-3">
                 <label for="inputTitulo" class="form-label">Título</label>
@@ -37,7 +37,7 @@
         </form>
     </section>
 
-    <section class="card m-3 p-2">
+    <section class="card m-3 p-2 mx-auto" style="max-width: 25cm;">
         <div class="mb-3">
             <label for="inputFile" class="form-label">Subir Imágenes</label>
             <input type="file" class="form-control"  id="inputFile" multiple accept="image/*">

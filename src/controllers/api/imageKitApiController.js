@@ -28,7 +28,7 @@ module.exports = {
             // tags : ["a ver este tagggg","tag2"], //optional
         })
         .then( async response => {
-            console.log(response);
+            // console.log(response);
             let url = response.thumbnailUrl
             let fileId = response.fileId
             try {
@@ -54,10 +54,10 @@ module.exports = {
       
         let imageId = req.body.imageId 
         let idProduct = String(req.body.idProduct )
-        console.log(imageId, idProduct);
+        // console.log(imageId, idProduct);
         imagekit.deleteFile(imageId)
             .then( async response => {
-                console.log(response);
+                // console.log(response);
                 let resultDb1 = await mongoDb.findDocuments('products',{_id: new ObjectId(idProduct)})
 
                 let newArrayImagenes = resultDb1[0].imagenes.filter(img => {

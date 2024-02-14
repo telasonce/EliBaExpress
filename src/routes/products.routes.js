@@ -8,7 +8,7 @@ const permisosMiddleware = require('../middlewares/permisosMiddleware.js')
 
 router.get('/', productsController.indexProducts);
 router.get('/detail/:idProduct/', productsController.detailProduct);
-router.get('/update/:idProduct/', permisosMiddleware, productsController.updateProduct);
+router.get('/admin/update/:idProduct/', permisosMiddleware, productsController.updateProduct);
 
 router.get('/admin', permisosMiddleware, productsController.adminProducts);
 

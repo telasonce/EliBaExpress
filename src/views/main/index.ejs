@@ -10,20 +10,17 @@
 
     <div class=" m-2 mt-3 alert alert-primary <%= locals.message && message != '' ? '' : 'd-none'  %> " role="alert"> <%= locals.message && message  %> </div>
 
-    <h1 class="text-center">Index</h1>
+    <!-- <h1 class="text-center">Index</h1> -->
 
-    <form method="post" id="formUploadImageKit">
-        <input type="file" name="image" id="inputImage">
-        <input type="email" name="email" value="email@gmail.com" id="emaill">
-        <button type="submit">Enviar</button>
-    </form>
+    <section class="" style="max-width: 95%;">
+        <h3 class="ms-3 mb-1 mt-3">Top 10 más buscados</h3>
+        <section id="top10" class="d-flex table-responsive  bg-light">
 
-    <form action="/imagekit/delete" method="post">
-        <input type="text" name="imageId" id="">
-        <input type="submit" value="Eliminar Imagen">
-    </form>
+        </section>
+        <h4 class="text-end me-3 my-2"><a href="/products">Ver todos nuestros productos</a></h4>
+    </section>
 
-    <script src="/js/testImageKit.js"></script>
+    <script src="/js/index.js"></script>
     <%- include('../partials/footer') %>
 
 </body>

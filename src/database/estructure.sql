@@ -1,11 +1,16 @@
 -- tabla users
 let users = {
-    idUser: resultAllUsers.length, email, createdAt: Date.now(), 
-    isActive: 1, token, nombre:'', apellido:'', dni:0, nacimiento:'', 
-    verificado: false, dispositivosVinculados: [],
+    idUser: resultAllUsers.length, 
+    email, 
+    createdAt: Date.now(), 
+    isActive: 1, 
+    nombre:'', apellido:'', 
+    dni:0, 
+    nacimiento:'', 
+    verificado: false, 
+    dispositivosVinculados: [],
     token:'', 
     isAdmin: true,
-
 }
 
 -- tabla products
