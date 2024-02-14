@@ -20,8 +20,9 @@ module.exports = {
         let message = req.cookies.message
         res.clearCookie('message');
 
+        let querySearch = req.query.q || ''
         
-        res.render('main/index', { message, user:req.session.userLogged })
+        res.render('main/index', { message, user:req.session.userLogged, querySearch })
     },
 
     administrarUsuarios: async(req, res) => {

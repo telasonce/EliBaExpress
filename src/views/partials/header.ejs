@@ -5,12 +5,12 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
       <div class="container-fluid p-1">
-        <form class="d-flex" role="search">
+        <form action="/" method="get" class="d-flex" role="search" id="formBuscadorHeader">
           <div class="input-group my-1">
             <span class="input-group-text p-1" style="width: 38px; height: 38px;"><a href="/"><img src="/img/logo/EliBaExpress-logo-E.png" alt="E" class="w-100"></a></span>
 
-            <input type="search" class="form-control" placeholder="Buscar" aria-label="Username" aria-describedby="basic-addon1">
-            <button class="btn btn-outline-success btn-sm" type="submit">
+            <input type="search" class="form-control" placeholder="Buscar"  name="q" value="<%= locals.querySearch && querySearch || '' %>">
+            <button class="btn btn-outline-success btn-sm" type="submit" id="btnBuscadorHeader">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
               </svg>
