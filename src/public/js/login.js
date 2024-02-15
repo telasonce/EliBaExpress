@@ -179,8 +179,7 @@ function validarEmail(valor) {
     btnRegistrarme.disabled = true
 
     await grecaptcha.enterprise.ready(async () => {
-        // const tokenRecapcha = await grecaptcha.enterprise.execute('6LcgDiopAAAAAA0xf-wdujzO8rWOt25-RTyiPBzl', {action: 'LOGIN'});
-        const tokenRecapcha = await grecaptcha.enterprise.execute('6LeYbmIpAAAAAPklcozZY4agcs1RQ3jfNQWyqi48', {action: 'LOGIN'});
+        const tokenRecapcha = await grecaptcha.enterprise.execute('6Lc55nApAAAAAPJc8Ep4abxGzcCUJx1T10xjuVSa', {action: 'LOGIN'});
 
 
     const res = await fetch( '/api/apiRegistro', {
