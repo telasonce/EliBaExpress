@@ -293,6 +293,7 @@ btnRecuperarCont.addEventListener('click', async e=>{
 // Update  Contraseña
 
 if(emailQuery && tokenQuery){
+    divFormIngresar.classList.add('d-block') //abro el modal de iniciar sesion
     inputEmailLog.value = emailQuery
     inputEmailLog.classList.add('is-valid')
     btnNewPassword.classList.remove('d-none')

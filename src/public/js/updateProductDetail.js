@@ -1,7 +1,7 @@
 
 let loading2 = `  <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> <span class="visually-hidden" role="status"></span>`
 
-let idProduct = window.location.pathname.split('/')[3]
+let idProduct = window.location.pathname.split('/')[4]
 // console.log(idProduct)
 
 // Form actualizar titulo y descripcion y etiquetas
