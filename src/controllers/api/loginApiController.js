@@ -77,8 +77,8 @@ const bcrypt = require('bcryptjs')
         let tokenRecapcha = req.body.tokenRecapcha
         let funcionRecapcha = await validarRecapcha(tokenRecapcha)
         funcionRecapcha = JSON.parse(funcionRecapcha)
+        console.log( funcionRecapcha )
         let recapchaValid = funcionRecapcha.data.tokenProperties.valid
-       // console.log( funcionRecapcha )
        if( !recapchaValid ){
          return res.json({ ok: false, status: 'error', email: false, password: false, funcionRecapcha, messaje: 'Robot Detectado', recapchaValid});
        }
@@ -195,7 +195,8 @@ const bcrypt = require('bcryptjs')
           "expectedAction": "LOGIN",
           "siteKey": process.env.SiteKey_recapcha
         }}
-        let axiosRecapcha =  await axios.post('https://recaptchaenterprise.googleapis.com/v1/projects/recapchatelasonc-1702043749029/assessments?key='+process.env.ApiKey_Recapcha, databody )
+        // let axiosRecapcha =  await axios.post('https://recaptchaenterprise.googleapis.com/v1/projects/recapchatelasonc-1702043749029/assessments?key='+process.env.ApiKey_Recapcha, databody )
+        let axiosRecapcha =  await axios.post('https://recaptchaenterprise.googleapis.com/v1/projects/elibaexpress/assessments?key='+process.env.ApiKey_Recapcha, databody )
                .then(function (response) {
           // console.log(response);
           // console.log('respuesta recapcha');
@@ -349,9 +350,9 @@ let validarRecapcha = async function (tokenRecapcha) {
    let databody = {"event": {
     "token": tokenRecapcha,
     "expectedAction": "LOGIN",
-    "siteKey": process.env.SiteKey_recapcha
+    "siteKey": process.env.SiteKey_recapcha  
   }}
-  let axiosRecapcha =  await axios.post('https://recaptchaenterprise.googleapis.com/v1/projects/recapchatelasonc-1702043749029/assessments?key='+process.env.ApiKey_Recapcha, databody )
+  let axiosRecapcha =  await axios.post('https://recaptchaenterprise.googleapis.com/v1/projects/elibaexpress/assessments?key='+process.env.ApiKey_Recapcha, databody )
          .then(function (response) {
     // console.log(response);
     // console.log('respuesta recapcha');
