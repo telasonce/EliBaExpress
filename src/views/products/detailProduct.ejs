@@ -1,3 +1,5 @@
+<!-- https://elibaexpress-production.up.railway.app/ -->
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,6 +19,21 @@
     <meta name="audience" content="all">
     <meta name="robots" content="index, all, follow">
     <meta name="category" content="Producto en venta">
+
+    <!-- SEO OG -->
+    <meta property="og:title"content="<%= locals.product && product.titulo || 'Encuentre más productos en EliBaExpress' %>"/>
+    <meta property="og:type"content="Producto"/>
+    <meta property="og:description"content="<%= locals.product && product.descripcion || 'Encuentre más productos en EliBaExpress' %>"/>
+    <meta property="og:image"content="<%= product && product.imagenes.length > 0 && product.imagenes[0].url || '' %>"/>
+    <meta property="og:url"content="<%= urlActual %>"/>
+    <meta property=”fb:admins” content=”EliBaExpress” />
+
+    <!-- SEO twiter -->
+    <meta name=”twitter:card” content="summary with large image">
+    <meta name="twitter:url" contnet="<%= urlActual %>">
+    <meta name="twitter:title" contnet="<%= locals.product && product.titulo || 'Encuentre más productos en EliBaExpress' %>">
+    <meta name="twitter:description" contnet="<%= locals.product && product.descripcion || 'Encuentre más productos en EliBaExpress' %>">
+    <meta name="twitter:image" contnet="<%= product && product.imagenes.length > 0 && product.imagenes[0].url || '' %>">
 
     <meta itemprop="image" content="<%= product && product.imagenes.length > 0 && product.imagenes[0].url || '' %>" />
 
