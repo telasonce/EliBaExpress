@@ -32,7 +32,7 @@
                 <section style="max-width: 80%;" class="mx-auto mb-3 sticky-top">
                     <div class="text-end mt-4">
                         <a href="/products/detail/<%= product._id %>/?t=<%= product.titulo.replaceAll(' ', '-').replaceAll('/','-') %>" class="btn btn-outline-primary btn-lg" target="_blank" rel="noopener noreferrer">VER</a>
-                        <a href="https://wa.me/5491130201084/?text=<%=  encodeURIComponent(`http://localhost:3000/products/detail/${product._id}/?t=${product.titulo.replaceAll(' ', '-').replaceAll('/','-')}\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!`)%> " class="btn btn-outline-success btn-lg" target="_blank" rel="noopener noreferrer">Comprar</a>
+                        <a href="https://wa.me/5491130201084/?text=<%=  encodeURIComponent(`https://elibaexpress-production.up.railway.app/products/detail/${product._id}/?t=${product.titulo.replaceAll(' ', '-').replaceAll('/','-')}\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!`)%> " class="btn btn-outline-success btn-lg" target="_blank" rel="noopener noreferrer">Comprar</a>
                     </div>
                 </section>
                 <h5 class="card-title"><%= product.titulo %></h5>

@@ -29,7 +29,7 @@
             <li class="nav-item">
               <button class="nav-link cursor-pointer" id="btnModalIngresar">Iniciar sesión</button>
             </li>
-            <%- include('./login') %>
+            
             <% } else { %>
               <!-- <li class=" d-none d-lg-block">|</li> -->
               <li class="nav-item">
@@ -68,6 +68,8 @@
         </div>
       </div>
     </nav>
-
+      <% if(!locals.user){ %>
+        <%- include('./login') %>
+      <% }  %>
 
 </header>

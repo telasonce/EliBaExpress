@@ -4,6 +4,37 @@
     <%- include('../partials/head') %>
 
     <title><%= product && product.titulo || '' %> - EliBaExpress</title>
+
+    <!-- SEO -->
+    <meta name="description" content=<%= product && product.descripcion %>>
+    <meta name="keywords" content="<%= product && product.etiquetas %>">
+    <meta name="author" content="MDCDigital - MDCDigital26@gmail.com">
+    <meta name="language" content="spanish">
+    <meta name="copyright" content="MDCDigital">
+    <meta name="audience" content="all">
+    <meta name="robots" content="index, all, follow">
+    <meta name="category" content="Producto en venta">
+
+    <meta itemprop="image" content="{{ 'http:' ~ product.featured_image | product_image_url('large') }}" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "<%= product && product.titulo %>",
+        "description": "<%= product && product.descripcion %>",
+        "dateModified": "<%= product && new Date (product.updatedAt) //.toLocaleString('en-GB', { timeZone: 'UTC' }) %>",
+        "url": "<%= urlActual %>",
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "ARS",
+            "price": "<%= product && product.ganancias.length > 0 && product.ganancias[0].precio || 0 %>"
+        },
+        "image": "<%= product && product.imagenes.length > 0 && product.imagenes[0].url || '' %>"
+
+      }
+    </script>
+
 </head>
 <body>
     <%- include('../partials/header') %>
