@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <%- include('../partials/head') %>
 
-    <title><%= product && product.titulo || '' %> - EliBaExpress</title>
+<head>
+  <%- include('../partials/head') %>
+
+    <title>
+      <%= product && product.titulo || '' %> - EliBaExpress
+    </title>
 
     <!-- SEO -->
-    <meta name="description" content=<%= product && product.descripcion %>>
-    <meta name="keywords" content="<%= product && product.etiquetas %>">
+    <meta name="description" content="<%= locals.product && product.descripcion || 'Encuentre más productos en EliBaExpress' %>">
+    <meta name="keywords" content="<%= locals.product && product.etiquetas || 'Tela, Confeccion, Mejor precio' %>">
     <meta name="author" content="MDCDigital - MDCDigital26@gmail.com">
     <meta name="language" content="spanish">
     <meta name="copyright" content="MDCDigital">
@@ -15,7 +18,7 @@
     <meta name="robots" content="index, all, follow">
     <meta name="category" content="Producto en venta">
 
-    <meta itemprop="image" content="{{ 'http:' ~ product.featured_image | product_image_url('large') }}" />
+    <meta itemprop="image" content="<%= product && product.imagenes.length > 0 && product.imagenes[0].url || '' %>" />
 
     <script type="application/ld+json">
       {
@@ -23,7 +26,8 @@
         "@type": "Product",
         "name": "<%= product && product.titulo %>",
         "description": "<%= product && product.descripcion %>",
-        "dateModified": "<%= product && new Date (product.updatedAt) //.toLocaleString('en-GB', { timeZone: 'UTC' }) %>",
+        "availabilityStarts": "<%= product && new Date (product.updatedAt) //.toLocaleString('en-GB', { timeZone: 'UTC' }) %>",
+        "validFrom": "<%= product && new Date (product.updatedAt) //.toLocaleString('en-GB', { timeZone: 'UTC' }) %>",
         "url": "<%= urlActual %>",
         "offers": {
             "@type": "Offer",
@@ -36,69 +40,88 @@
     </script>
 
 </head>
-<body>
-    <%- include('../partials/header') %>
-    <% if (product) { %>
- 
-    <div class="mx-auto w-75 alert alert-secondary <%= product.isActive ? 'd-none' : '' %>" role="alert"> El producto se encuentra temporalmente pausado.</div>
 
-    <div class="card mx-auto my-3 p-1" style="max-width: 20cm;">
-      <section class="d-flex justify-content-start table-responsive">
-        <% product.imagenes.forEach(imagen => { %>
-          <img src="<%= imagen.url %>"  class="img-thumbnail m-3" alt="imgProduct"  style="max-width: 7cm; max-height: 7cm;">
-        <% }) %>
-      </section>
+<body>
+  <%- include('../partials/header') %>
+    <% if (product) { %>
+
+      <div class="mx-auto w-75 alert alert-secondary <%= product.isActive ? 'd-none' : '' %>" role="alert"> El producto
+        se encuentra temporalmente pausado.</div>
+
+      <div class="card mx-auto my-3 p-1" style="max-width: 20cm;">
+        <section class="d-flex justify-content-start table-responsive">
+          <% product.imagenes.forEach(imagen=> { %>
+            <img src="<%= imagen.url %>" class="img-thumbnail m-3" itemprop="image" alt="imgProduct"
+              style="max-width: 7cm; max-height: 7cm;">
+            <% }) %>
+        </section>
         <div class="card-body">
           <div class="d-flex mb-2 justify-content-start flex-nowrap align-items-center table-responsive">
-            <% product.etiquetas && product.etiquetas.trim().split(',').forEach( etiqueta => { %>
-              <% if (etiqueta.length >= 2) { %>
-                <small class="text-uppercase bg-danger rounded-pill p-2 m-1 text-white" style="min-width: fit-content;"><%=  etiqueta %></small>
+            <% product.etiquetas && product.etiquetas.trim().split(',').forEach( etiqueta=> { %>
+              <% if (etiqueta.length>= 2) { %>
+                <small class="text-uppercase bg-danger rounded-pill p-2 m-1 text-white" style="min-width: fit-content;">
+                  <%= etiqueta %>
+                </small>
                 <% } %>
-            <% }) %>
+                  <% }) %>
           </div>
 
-          <h3 class="card-title bg-secondary text-white ps-2"><%= product.titulo %></h3>
+          <h3 class="card-title bg-secondary text-white ps-2">
+            <%= product.titulo %>
+          </h3>
 
-              <p class="card-text" id="descripcionProducto">
-                <%= //product.descripcion.replaceAll('\n', '<br>') %>
-                <% product.descripcion.split('\n').forEach(parrafo => { %>
-                 <%= parrafo %><br>
-                <% }) %>
-              </p>
-              <hr>
-              <section style="max-width: 80%;" class="mx-auto mb-3" id="sectPrecios">
-                  
-                  <h5 class="text-underline"> Precios </h5>
-                  
-                  <% product.ganancias.forEach( forma => { %>
-                    <% if (forma.activo) { %>
-                      <p class="card-text mb-1">--<i> <%= forma.forma %></i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
-                        <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
-                      </svg> <b><%= forma.precio %></b></p>
-                      <% } %>
-                    <% }) %>
-                  
-                  
-                  <div class="text-end mt-4">
-                      <a id="btnWh1" href="" class="btn btn-outline-success btn-lg" target="_blank">Comprar</a>
-                      
+          <p class="card-text" id="descripcionProducto">
+            <%= //product.descripcion.replaceAll('\n', '<br>' ) %>
+              <% product.descripcion.split('\n').forEach(parrafo=> { %>
+                <%= parrafo %><br>
+                  <% }) %>
+          </p>
+          <hr>
+          <section style="max-width: 80%;" class="mx-auto mb-3" id="sectPrecios">
+
+            <h5 class="text-underline"> Precios </h5>
+
+            <% product.ganancias.forEach( forma=> { %>
+              <% if (forma.activo) { %>
+                <p class="card-text mb-1">--<i>
+                    <%= forma.forma %>
+                  </i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1"
+                    width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
+                    <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
+                  </svg> <b itemprop="price">
+                    <%= forma.precio %>
+                  </b></p>
+                <% } %>
+                  <% }) %>
+
+
+                    <div class="text-end mt-4">
+                      <a id="btnWh1" href="" itemprop="contact" class="btn btn-outline-success btn-lg"
+                        target="_blank">Comprar</a>
+
                       <script type="text/javascript">
-                        let linkWh = 'https://wa.me/5491130201084/?text='+  encodeURIComponent(location.href +'\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!')
+                        let linkWh = 'https://wa.me/5491130201084/?text=' + encodeURIComponent(location.href + '\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!')
                         document.querySelector('#btnWh1').setAttribute("href", linkWh)
                       </script>
 
                     </div>
-                  <hr>
-              </section>
+                    <hr>
+          </section>
 
-          <p class="card-text text-body-secondary mb-0"><small class="text-body-secondary">Última actualización  <%= new Date(product.updatedAt).toLocaleDateString(('es-ES'), { year: 'numeric', month: 'long', day: 'numeric',}) %></small> </p>
-          <p class="card-text text-body-secondary"><small class="text-body-secondary">Vistas </small> <%= product.vistas %> </p>
+          <p class="card-text text-body-secondary mb-0"><small class="text-body-secondary">Última actualización <%= new
+                Date(product.updatedAt).toLocaleDateString(('es-ES'), { year: 'numeric' , month: 'long' , day: 'numeric'
+                ,}) %></small> </p>
+          <p class="card-text text-body-secondary"><small class="text-body-secondary">Vistas </small>
+            <%= product.vistas %>
+          </p>
         </div>
-    </div>
-    <% } else { %>
-      <div class="mx-auto w-75 alert alert-secondary" role="alert"> No encontramos el producto. <a href="/">Inicio</a></div>
-    <% } %>
-    <%- include('../partials/footer') %>
+      </div>
+      <% } else { %>
+        <div class="mx-auto w-75 alert alert-secondary" role="alert"> No encontramos el producto. <a href="/">Inicio</a>
+        </div>
+        <% } %>
+          <%- include('../partials/footer') %>
 
 </body>
+
 </html>
