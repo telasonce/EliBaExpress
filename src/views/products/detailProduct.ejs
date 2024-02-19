@@ -51,9 +51,20 @@
             "priceCurrency": "ARS",
             "price": "<%= product && product.ganancias.length > 0 && product.ganancias[0].precio || 0 %>"
         },
-        "image": "<%= product && product.imagenes.length > 0 && product.imagenes[0].url || '' %>"
-
-      }
+        "image": [<%= product && product.imagenes.length > 0 && product.imagenes.map(imagen=> String(imagen.url) ).join(',') || '' %>],
+        "review": {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": 5,
+            "bestRating": 5
+          },
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": <%= product && product.vistas %>,
+          "reviewCount": <%= product && product.vistas %>
+        },
     </script>
 
 </head>
@@ -117,8 +128,8 @@
                         target="_blank">Comprar</a>
 
                       <script type="text/javascript">
-                        let linkWh = 'https://wa.me/5491130201084/?text=' + encodeURIComponent(location.href + '\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!')
-                        document.querySelector('#btnWh1').setAttribute("href", linkWh)
+                        let linkWh3 = 'https://wa.me/5491130201084/?text=' + encodeURIComponent(location.href + '\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!')
+                        document.querySelector('#btnWh1').setAttribute("href", linkWh3)
                       </script>
 
                     </div>
