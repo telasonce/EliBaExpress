@@ -77,6 +77,9 @@
         se encuentra temporalmente pausado.</div>
 
       <div class="card mx-auto my-3 p-1" style="max-width: 20cm;">
+
+        <h3 class="card-title bg-ligth text-secondary ps-5 m-1"> <%= product.titulo %>  </h3>
+
         <section class="d-flex justify-content-start table-responsive">
           <% product.imagenes.forEach(imagen=> { %>
             <img src="<%= imagen.url %>" class="img-thumbnail m-3" itemprop="image" alt="imgProduct"
@@ -84,6 +87,7 @@
             <% }) %>
         </section>
         <div class="card-body">
+
           <div class="d-flex mb-2 justify-content-start flex-nowrap align-items-center table-responsive">
             <% product.etiquetas && product.etiquetas.trim().split(',').forEach( etiqueta=> { %>
               <% if (etiqueta.length>= 2) { %>
