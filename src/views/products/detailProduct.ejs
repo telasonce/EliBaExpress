@@ -27,6 +27,8 @@
     <meta property="og:image"content="<%= product && product.imagenes.length > 0 && product.imagenes[0].url || '' %>"/>
     <meta property="og:url"content="<%= urlActual %>"/>
     <meta property=”fb:admins” content=”EliBaExpress” />
+    <meta property="og:price:amount" content="<%= product && product.ganancias.length > 0 && product.ganancias[0].precio || '00.00' %>" />
+    <meta property="og:price:currency" content="ARS" />
 
     <!-- SEO twiter -->
     <meta name=”twitter:card” content="summary with large image">
@@ -65,6 +67,7 @@
           "ratingValue": <%= product && product.vistas %>,
           "reviewCount": <%= product && product.vistas %>
         },
+      }
     </script>
 
 </head>
