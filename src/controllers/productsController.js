@@ -52,7 +52,7 @@ module.exports = {
         let product = []
         try {
             product = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
-            console.log(product)
+            // console.log(product)
         } catch (error) {
             console.log(error)
         }

@@ -81,7 +81,7 @@ module.exports = {
         }
         try {
             let response = await mongoDb.insertDocuments('products', [data])
-            console.log(response)
+            // console.log(response)
             res.json({ message:'Product Created', status:'ok', data: response })
         } catch (error) {
             res.json({ message:'Error: '+error.message, status:'error', data: error })
@@ -134,6 +134,38 @@ module.exports = {
         try {
             let products = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
             res.json({ message:'Product deleted', status:'ok', data: response })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error })
+        }
+
+    },
+    
+    setImagenPrincipal: async(req, res) => {
+        let idProduct = String(req.body.idProduct)
+        let fileId = String(req.body.fileId)
+
+        try {
+            let product = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
+            if (product.length > 0) {
+                product = product[0]
+                product.imagenes.sort((a, b) => {
+                    if (a.fileId == fileId) {
+                      return -1;
+                    }
+                    if (a.fileId != fileId) {
+                      return 1;
+                    }
+                  });
+            let data = {
+            updatedAt: Date.now(),
+            imagenes: product.imagenes
+            }
+            let response = await mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, data)
+
+                  res.json({ message:'Product Edited', status:'ok', data: product })
+            } else {
+                res.json({ message:'Product not fonuded', status:'error', data: product })
+            }
         } catch (error) {
             res.json({ message:'Error: '+error.message, status:'error', data: error })
         }

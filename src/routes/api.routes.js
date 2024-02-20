@@ -33,7 +33,7 @@ router.post('/products/admin/pausarProducto', permisosMiddleware, productsApiCon
 router.post('/products/admin/update/costosYganancias', permisosMiddleware, productsApiController.updateCostosYganancias);
 
 //     //    set images imagekit  in product
-// router.post('/products/update/orderImages', productsApiController.productsUpdateOrderImages);
+router.post('/products/admin/update/setImagenPrincipal', permisosMiddleware, productsApiController.setImagenPrincipal);
 
 
 module.exports = router; 
