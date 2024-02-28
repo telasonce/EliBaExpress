@@ -84,7 +84,7 @@ let mostrarArticulos = async function() {
             <div id="divPrecios">   </div>
                 
                 <div class="d-flex justify-content-between align-items-center">
-                    <a></a>
+                    <p class="text-bold">Última actualizacion: ${ moment( new Date( articulo.updatedAt ), "YYYYMMDD").fromNow() }</p>
                     <button type="submit" id="btnActualizar" class="btn btn-secondary border-4">Actualizar</button>
                     <button class="btn btn-outline-primary m-1 btn-sm" type="button" id="btnAgregarForma" >+</button>
                 </div>
@@ -220,7 +220,7 @@ let mostrarArticulos = async function() {
             if (divsForma) {
                 for (let index = 0; index < divsForma.length; index++) {
                     const element = divsForma[index];
-                    let forma = element.querySelector('#forma').value
+                    let forma = element.querySelector('#forma').value.toUpperCase()
                     let precio = element.querySelector('#precio').innerHTML
                     let ganancia = element.querySelector('#ganancia').value
                     let precioactivo = element.querySelector('#precioactivo').checked ? true : false

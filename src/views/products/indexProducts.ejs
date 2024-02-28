@@ -31,40 +31,64 @@
       
                 <section style="max-width: 80%;" class="mx-auto mb-3 sticky-top">
                     <div class="text-end mt-4">
-                        <a href="/products/detail/<%= product._id %>/?t=<%= product.titulo.replaceAll(' ', '-').replaceAll('/','-') %>" class="btn btn-outline-primary btn-lg" target="_blank" rel="noopener noreferrer">VER</a>
-                        <a href="https://wa.me/5491130201084/?text=<%=  encodeURIComponent(`https://elibaexpress-production.up.railway.app/products/detail/${product._id}/?t=${product.titulo.replaceAll(' ', '-').replaceAll('/','-')}\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!`)%> " class="btn btn-outline-success btn-lg" target="_blank" rel="noopener noreferrer">Comprar</a>
+                        <a style="width: 5cm;" class="btn btn-outline-primary btn-lg my-2" href="/products/detail/<%= product._id %>/?t=<%= product.titulo.replaceAll(' ', '-').replaceAll('/','-') %>"  target="_blank" rel="noopener noreferrer">👁️ VER 👀</a>
+                        <a style="width: 7cm;" class="btn btn-outline-success btn-lg my-2" href="https://wa.me/5491130201084/?text=<%=  encodeURIComponent(`https://elibaexpress.com.ar/products/detail/${product._id}/?t=${product.titulo.replaceAll(' ', '-').replaceAll('/','-')}\n\nHola EliBaExpress!!\nQuiero que me llamen para comprar este producto.\nGracias!`)%> "  target="_blank" rel="noopener noreferrer">👉 Comprar 👈  💬</a>
                     </div>
                 </section>
-                <h5 class="card-title"><%= product.titulo %></h5>
-                
-                <p class="card-text text-truncate" id="descripcionProducto"><%= product.descripcion %></p>
+                <div onclick="verMas(this)" style="cursor: pointer;">
+                  <h5 class="card-title"><%= product.titulo %></h5>
+                  
+                  <p class="card-text text-truncate" id="descripcionProducto"><%= product.descripcion %></p>
                     
-                <section style="max-width: 80%;  " class="mx-auto mb-1 d-none" id="sectPrecios">
-                        <hr class="<%= product.ganancias.length == 0 ? 'd-none' : '' %> w-75">
-                        
-                        <h5 class="text-underline <%= product.ganancias.length == 0 ? 'd-none' : '' %>"> Precios </h5>
-                        
-                        <% product.ganancias.forEach( forma => { %>
-                          <% if (forma.activo) { %>
-                            <p class="card-text mb-1">--<i> <%= forma.forma %></i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
-                              <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
-                            </svg> <b><%= forma.precio %></b></p>
-                            <% } %>
-                          <% }) %>
-                        
-                </section>
-                <a style="cursor: pointer;" class="text-primary" onclick="verMas(this)">Ver Más</a>
-                
+
+                  <section style="max-width: 80%;  " class="mx-auto mb-1 d-none" id="sectPrecios">
+                          <hr class="<%= product.ganancias.length == 0 ? 'd-none' : '' %> w-75">
+                          
+                          <h5 class="text-underline <%= product.ganancias.length == 0 ? 'd-none' : '' %>"> Precios </h5>
+                          
+                          <% product.ganancias.forEach( forma => { %>
+                            <% if (forma.activo) { %>
+                              <p class="card-text mb-1">--<i> <%= forma.forma %></i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
+                                <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
+                              </svg> <b><%= forma.precio %></b></p>
+                              <% } %>
+                            <% }) %>
+                          
+                  </section>
+                  <!-- <div style="cursor: pointer;">
+                    <a  class="text-primary" >Ver Más</a>
+                  </div> -->
+              </div>
+
+                <div class="text-end">
+                  <i class="text-end" id="fechaActualizacion" valor="<%= product.updatedAt %>"></i>
+                </div>
               </div>
           </div>
     <% }) %>
+
+    <!-- moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/es-mx.min.js" integrity="sha512-xDkjENZG+aLSnyKKVe8hFVXGnxSUXZmTHifRsaaGhRhFpEhLJTksMuqB/9zQHJ3xYwG0JAhFi0a6eG41n1I6/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
         function verMas(e) {
-            e.innerHTML == 'Ver Más' ? e.innerHTML = 'Ver Menos' : e.innerHTML = 'Ver Más'
-            e.parentElement.querySelector('#descripcionProducto').classList.toggle('text-truncate')
-            e.parentElement.querySelector('#sectPrecios').classList.toggle('d-none')
+            // e.querySelector('a').innerHTML == 'Ver Más' ? e.querySelector('a').innerHTML = 'Ver Menos' : e.querySelector('a').innerHTML = 'Ver Más'
+            e.parentElement.querySelector('#descripcionProducto').classList.remove('text-truncate')
+            e.parentElement.querySelector('#sectPrecios').classList.remove('d-none')
         }
+
+        let Ifechas = document.querySelectorAll('#fechaActualizacion')
+        for (let index = 0; index < Ifechas.length; index++) {
+          const fecha = Ifechas[index];
+          console.log(fecha.attributes['valor'].value)
+          let dateNumero = Number(fecha.attributes['valor'].value)
+          fecha.innerText = moment( new Date( dateNumero ), "YYYYMMDD").fromNow()
+        }
+        
     </script>
+
+
     <%- include('../partials/footer') %>
 
 </body>

@@ -130,10 +130,38 @@ module.exports = {
     productsDelete: async(req, res) => {
         let idProduct = String(req.body.idProduct)
 
+        let pendientes = []
+        let errores = ''
         // antes eliminar las imagenes!
         try {
-            let products = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
-            res.json({ message:'Product deleted', status:'ok', data: response })
+            let product = await mongoDb.findDocuments('products', {_id: new ObjectId(idProduct)})
+            if (product.length >= 1) {  product = product[0] }
+
+            await product.imagenes.forEach( async imagen => {
+                await imagekit.deleteFile(imagen.fileId)
+                .then( async response => {
+                    // console.log(response);
+                })
+                .catch(error => {
+                    pendientes.push(imagen)
+                    errores += error.message + '  '
+                    console.log(error);
+                });
+            });
+
+            if (pendientes.length == 0) {
+                let response = await mongoDb.deleteDocuments('products', {_id: new ObjectId(idProduct)})
+                res.json({ message:'Product deleted', status:'ok', data: response })
+                
+            } else {
+                let data = {
+                    updatedAt: Date.now(),
+                    imagenes: pendientes
+                }
+                let response = await mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, data)
+
+                res.json({ message:'Error al eliminar las imagenes: '+errores, status:'error', data: errores, pendientes, response })
+            }
         } catch (error) {
             res.json({ message:'Error: '+error.message, status:'error', data: error })
         }

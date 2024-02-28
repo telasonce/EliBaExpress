@@ -10,7 +10,8 @@
 
 
     <h1 class="text-center">Editar Producto</h1>
-
+    
+    <% if(product.length != 0) { %>
     <section class="card m-3 p-2 mx-auto" style="max-width: 25cm; background-color: rgb(234, 231, 231);">
         <form id="formP1">
             <div class="mb-3">
@@ -56,8 +57,20 @@
 
     </section>
 
+    <section class="mx-auto my-3 p-3 text-center">
+        <div class="dropdown mx-auto w-100">
+            <button style="max-width: 20cm;" class="btn btn-outline-danger dropdown-toggle mx-auto w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false"> Eliminar Producto </button>
+            <ul class="dropdown-menu " style="cursor: pointer;">
+              <li><a class="dropdown-item bg-danger text-white" onclick="eliminarProducto(this)">Eliminar Producto publicado con sus imágenes</a></li>
+            </ul>
+          </div>
+    </section>
+
 <script src="/js/updateProductDetail.js"></script>
 
+<% } else { %>
+    <h4 class="text-center text-warning">Producto no encontrado / o eliminado</h4>
+<% }  %>
     <%- include('../partials/footer') %>
 
 </body>

@@ -132,3 +132,38 @@ async function setImagenPrincipal(fileId, e) {
       console.error("Error:", error);
     }
 }
+
+async function eliminarProducto(e) {
+  // let btnEliminarProducto = document.querySelector('#btnEliminarProducto')
+  e.innerHTML = loading2
+  e.disabled = true 
+  e.parentElement.disabled = true 
+  e.parentElement.parentElement.parentElement.querySelector('button').disabled = true 
+  e.parentElement.parentElement.parentElement.querySelector('button').innerHTML = loading2 
+
+  try {
+    const response = await fetch("/api/products/admin/delete", {
+      method: "POST", headers: { "Content-Type": "application/json", },
+      body: JSON.stringify({idProduct}),
+    });
+    const result = await response.json();
+    console.log("Success:", result);
+    e.parentElement.parentElement.parentElement.querySelector('button').innerHTML = 'Producto Eliminado' 
+    e.innerHTML = 'Producto Eliminado' 
+      setTimeout(function(){
+        window.close();
+      }, 2000);
+
+
+  } catch (error) {
+    e.parentElement.parentElement.parentElement.querySelector('button').innerHTML = 'Error' + error 
+    e.parentElement.parentElement.parentElement.querySelector('button').disabled = false 
+    e.innerHTML = 'Eliminar Producto publicado con sus imágenes'
+    e.disabled = false 
+    // e.style.backgroundColor = 'none'
+    console.error("Error:", error);
+  }
+
+}
+
+

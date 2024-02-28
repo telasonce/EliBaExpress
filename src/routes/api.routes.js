@@ -27,7 +27,7 @@ router.get('/products/admin/getAllProducts', permisosMiddleware, productsApiCont
 router.get('/products/getById/:idProduct/', productsApiController.productsGetById);
 router.post('/products/create', productsApiController.productsCreate);
 router.post('/products/update', productsApiController.productsUpdateTituloDescripcion);
-router.post('/products/delete', productsApiController.productsDelete);
+router.post('/products/admin/delete', permisosMiddleware, productsApiController.productsDelete);
 router.post('/products/admin/reactivarProducto', permisosMiddleware, productsApiController.reactivarProducto);
 router.post('/products/admin/pausarProducto', permisosMiddleware, productsApiController.pausarProducto);
 router.post('/products/admin/update/costosYganancias', permisosMiddleware, productsApiController.updateCostosYganancias);

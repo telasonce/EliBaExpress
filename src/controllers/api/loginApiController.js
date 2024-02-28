@@ -307,9 +307,9 @@ let contEmailHtmlRegisterNewPassword = function (email, token) {
     <div style="text-align:center; border:1px black solid; max-width:fit-content; margin:15px auto; padding:15px; color:'black'; border-radius:10px">
         <h4>Te damos la Bienvenida!!</h4>
         <h5>Te registraste en EliBaExpress, ya puedes crear tu nueva contraseña.</h5>
-        <a style="color:green" href="https://elibaexpress-production.up.railway.app/?email=${email}&&token=${token}">Crear mi nueva contraseña</a>
+        <a style="color:green" href="https://elibaexpress.com.ar/?email=${email}&&token=${token}">Crear mi nueva contraseña</a>
         <h5>O usa el siguiente link</h5>
-        <a style="color:black" href="https://elibaexpress-production.up.railway.app/?email=${email}&&token=${token}">https://elibaexpress-production.up.railway.app/?email=${email}&&token=${token}</a>
+        <a style="color:black" href="https://elibaexpress.com.ar/?email=${email}&&token=${token}">https://elibaexpress.com.ar/?email=${email}&&token=${token}</a>
         <h6>Si no fuiste tu el que lo pediste, puedes descarlarlo. </h6>
     </div>
     `
@@ -319,9 +319,9 @@ let contEmailHtmlUpdatePassword = function (email, token) {
     <div style="text-align:center; border:1px black solid; max-width:fit-content; margin:15px auto; padding:15px; color:'black'; border-radius:10px">
         <h4>Actualiza tu contraseña!!</h4>
         <h5>Pediste actualizar tu contraseña en EliBaExpress, ya puedes hacerlo desde aqui:</h5>
-        <a style="color:green" href="https://elibaexpress-production.up.railway.app/?email=${email}&&token=${token}">Crear mi nueva contraseña</a>
+        <a style="color:green" href="https://elibaexpress.com.ar/?email=${email}&&token=${token}">Crear mi nueva contraseña</a>
         <h5>O usa el siguiente link</h5>
-        <a style="color:black" href="https://elibaexpress-production.up.railway.app/?email=${email}&&token=${token}">https://elibaexpress-production.up.railway.app/?email=${email}&&token=${token}</a>
+        <a style="color:black" href="https://elibaexpress.com.ar/?email=${email}&&token=${token}">https://elibaexpress.com.ar/?email=${email}&&token=${token}</a>
         <h6>Si no fuiste tu el que lo pediste, puedes descarlarlo. </h6>
     </div>
     `
