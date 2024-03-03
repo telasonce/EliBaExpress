@@ -2,6 +2,7 @@
 window.onload = async function e (){
     let products = await getProductsFetch()
     renderizarCards(products, 'top10', 'vistas', 10)
+    renderizarCardsImagenes(products, 'sectImagenes')
 
 let formBuscadorHeader = document.querySelector('#formBuscadorHeader')
 let btnBuscadorHeader = document.querySelector('#btnBuscadorHeader')
@@ -111,3 +112,36 @@ function findProductsToOrder(querySearch, arrayProducts) {
     }
     return arrayProducts
 }
+
+// section imagenes con titlo
+// let sectImagenes = document.querySelector('#sectImagenes')
+
+function renderizarCardsImagenes(products, sectionId) {
+
+      let section = document.querySelector('#'+sectionId)
+      section.innerHTML = ''
+    //   let contador = 0
+      for (let index = 0; index < products.length; index++) {
+        const product = products[index];
+        
+        if ( product.imagenes.length != 0 ) {
+            product.imagenes.forEach(imagen => {
+                
+                section.innerHTML += `
+            <a href="/products/detail/${ product._id }/?t=${ product.titulo.replaceAll(' ', '-').replaceAll('/','-') }" target="_blank" style="text-decoration: none; color: black;">
+    
+                <div class="card text-bg-dark m-2" style="width: 7cm; height: 7cm;">
+                    <img src="${imagen.url}" class="img-thumbnail"  alt="img" style="max-width: 100%; max-height: 100%;" >
+                    <div class="position-relative">
+                        <h5 class="card-title bg-secondary rounded p-2 position-absolute bottom-0 start-0 mx-1">${product.titulo}</h5>
+                    </div>
+                </div>
+    
+            </a>
+                `
+            })
+          
+        }
+      }
+    //   console.log(products)
+    }
