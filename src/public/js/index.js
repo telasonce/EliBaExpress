@@ -3,6 +3,7 @@ window.onload = async function e (){
     let products = await getProductsFetch()
     renderizarCards(products, 'top10', 'vistas', 10)
     renderizarCardsImagenes(products, 'sectImagenes')
+    renderizarPrecios(products, 'sectPrecios')
 
 let formBuscadorHeader = document.querySelector('#formBuscadorHeader')
 let btnBuscadorHeader = document.querySelector('#btnBuscadorHeader')
@@ -141,6 +142,40 @@ function renderizarCardsImagenes(products, sectionId) {
                 `
             })
           
+        }
+      }
+    //   console.log(products)
+    }
+
+
+    function renderizarPrecios(products, sectionId) {
+
+      let section = document.querySelector('#'+sectionId)
+      section.innerHTML = ''
+      for (let index = 0; index < products.length; index++) {
+        const product = products[index];
+        
+        if ( product.ganancias.length != 0 ) {
+            const newA = document.createElement("a");
+
+            newA.href = `/products/detail/${ product._id }/?t=${ product.titulo.replaceAll(' ', '-').replaceAll('/','-') }`
+            newA.style = "text-decoration: none; color: black;"
+            newA.target = "_blank"
+            newA.innerHTML = `<h6>${product.titulo}</h6>
+            `
+            
+            product.ganancias.forEach( forma  => {
+                if (forma.activo) {
+                    
+                    newA.innerHTML += `
+                    <p class="card-text mb-1 ms-3 text-secondary fs-6 fw-lighter"> -- <i> ${forma.forma}</i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
+                    <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
+                    </svg> <b>${ forma.precio } </b></p>
+                    `
+                }
+            })
+            newA.innerHTML += `<br>`
+            section.appendChild (newA)
         }
       }
     //   console.log(products)
