@@ -6,6 +6,7 @@ const permisosMiddleware = require('../middlewares/permisosMiddleware.js')
 const loginApiController = require('../controllers/api/loginApiController');
 const productsApiController = require('../controllers/api/productsApiController');
 const usersApiController = require('../controllers/api/usersApiController');
+const coloresApiController = require('../controllers/api/coloresApiController.js');
 
 // Api    registro, login y recuperar password
 router.post('/apiLogin', loginApiController.apiLogin);
@@ -31,9 +32,18 @@ router.post('/products/admin/delete', permisosMiddleware, productsApiController.
 router.post('/products/admin/reactivarProducto', permisosMiddleware, productsApiController.reactivarProducto);
 router.post('/products/admin/pausarProducto', permisosMiddleware, productsApiController.pausarProducto);
 router.post('/products/admin/update/costosYganancias', permisosMiddleware, productsApiController.updateCostosYganancias);
+router.post('/products/admin/update/unidadDeMedida', permisosMiddleware, productsApiController.updateUnidadDeMedida);
+router.post('/products/admin/update/stock', permisosMiddleware, productsApiController.updateStock);
 
-//     //    set images imagekit  in product
+//        set images imagekit  in product
 router.post('/products/admin/update/setImagenPrincipal', permisosMiddleware, productsApiController.setImagenPrincipal);
+
+// api crud colores
+router.get('/colores/get', coloresApiController.getColores);
+router.post('/colores/admin/save', permisosMiddleware, coloresApiController.insertColor);
+router.post('/colores/admin/update', permisosMiddleware, coloresApiController.updateColor);
+router.post('/colores/admin/delete', permisosMiddleware, coloresApiController.deleteColor);
+
 
 
 module.exports = router; 

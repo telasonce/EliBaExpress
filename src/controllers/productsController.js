@@ -22,6 +22,10 @@ module.exports = {
     adminProducts: async(req, res) => {
         res.render('products/adminProducts', { user:req.session.userLogged })
     },
+   
+    adminStockProducts: async(req, res) => {
+        res.render('products/adminStock', { user: req.session.userLogged })
+    },
 
     detailProduct: async(req, res) => {
         let idProduct = String(req.params.idProduct)

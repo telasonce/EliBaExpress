@@ -11,5 +11,6 @@ router.get('/detail/:idProduct/', productsController.detailProduct);
 router.get('/admin/update/:idProduct/', permisosMiddleware, productsController.updateProduct);
 
 router.get('/admin', permisosMiddleware, productsController.adminProducts);
+router.get('/admin/adminStockProducts', permisosMiddleware, productsController.adminStockProducts);
 
 module.exports = router; 

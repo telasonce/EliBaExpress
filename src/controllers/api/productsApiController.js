@@ -126,6 +126,40 @@ module.exports = {
         }
 
     },
+ 
+    updateUnidadDeMedida: async(req, res) => {
+        let idProduct = String(req.body.idProduct)
+        let dataProduct = req.body
+        let data = {
+            updatedAt: Date.now(),
+            unidadDeMedida: dataProduct.unidadDeMedida
+        }
+
+        try {
+            let response = await mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, data)
+            res.json({ message:'Product updated', status:'ok', data: response })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
+        }
+
+    },
+    
+    updateStock: async(req, res) => {
+        let idProduct = String(req.body.idProduct)
+        let dataStock = req.body.dataStock
+        let data = {
+            updatedAt: Date.now(),
+            stock: dataStock
+        }
+
+        try {
+            let response = await mongoDb.updateDocuments('products', {_id: new ObjectId(idProduct)}, data)
+            res.json({ message:'Product updated', status:'ok', data: response })
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
+        }
+
+    },
     
     productsDelete: async(req, res) => {
         let idProduct = String(req.body.idProduct)

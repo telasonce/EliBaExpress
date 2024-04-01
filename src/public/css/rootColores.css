@@ -1,0 +1,47 @@
+
+        /* https://hotpot.ai/color-generator  #43D3E3 */
+        :root{
+            --color-nude : #FCEDEC;
+            --color-grisacio : #ECFAFC;
+            --color-grisOscuro : #113539;
+            --color-negro : #040D0E;
+            --color-verdeOscuro : #0D5057;
+            --color-celeste : #43D3E3;
+            --color-verdeAgua : #43E3B3;
+            --color-manzana : #83E343;
+            --color-aqua : #43E3D3;
+            --color-aero : #43B3E3;
+            --color-aeroOscuro : #4393E3;
+            --color-purpura: #A343E3;
+            --color-violeta: #7343E3;
+            --color-fucsia: #E343D3;
+            --color-terracota: #E35343;
+            --color-marron: #57140D;
+            --color-amarillento: #D3E343;
+            --color-maiz: #E3B343;
+        }
+        .gradient{
+            background: linear-gradient(var(--color-celeste), var(--color-purpura) )
+        }
+        .fondoGradient{
+            border: var(--color-purpura) solid 3px ;
+            border-radius: 10px;
+            color: var(--color-amarillento);
+            background: linear-gradient(var(--color-violeta), var(--color-purpura) );
+            padding: 10px;
+            box-shadow: 5px 5px 5px 0px var(--color-verdeOscuro);
+        }
+        .colorLink{
+            color: var(--color-manzana);
+        }
+        .colorLink:hover{
+            color: var(--color-maiz);
+        }
+        .circulo{
+            width: 200px;
+            height: 200px;
+        }
+        .iconoCarrito{
+            background:linear-gradient(var(--color-violeta), var(--color-purpura) ); ;
+            border: var(--color-fucsia) solid 2px;
+        }

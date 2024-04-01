@@ -41,6 +41,9 @@ app.use('/api', rutasApi)
 const rutasProducts = require('./src/routes/products.routes');
 app.use('/products', rutasProducts)
 
+const rutasPedidos = require('./src/routes/pedidos.routes');
+app.use('/pedidos', rutasPedidos)
+
 app.use((req,res,next)=>{
     res.status(404).render('main/not-found')
 })

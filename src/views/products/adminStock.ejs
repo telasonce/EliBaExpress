@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head') %>
+
+    <title>Admin - Stock - EliBaExpress</title>
+    <!-- <link rel="stylesheet" href="/css/rootColores.css"> -->
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <h1 class="text-center">Administrar Stock disponible - Productos</h1>
+
+    <!-- btn modal colores -->
+    <nav class="fondoGradient  m-3 mx-auto" style="max-width: 10cm;">
+        <div class="text-center">
+            <button id="btnAbrirModalColores" class="btn btn-outline-light">Administrar Colores</button>
+        </div>
+    </nav>
+    <!-- section modal colores -->
+    <section>
+        <div class="modal show d-bloc.." tabindex="-1" id="modalColores">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Colores</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" id="btnCerrarModalColores2" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-1">
+
+                    <article>
+                        <label for="inputNewColor" class="form-label">Nuevo color</label>
+                        <div class="input-group mb-3">
+                            <input type="text" id="inputNameNewColor" class="form-control" placeholder="Azul Francia">
+                            <input type="color" id="inputPickerNEwColor" class="form-control form-control-color" style="max-width: 60px;">
+                            <input type="button" id="btnSaveNewColor" class="form-control btn btn-outline-secondary btn-sm p-1" style="max-width: 70px;"  value="Guardar">
+                        </div>
+                    </article>
+                    <hr>
+                    <section class="my-3" id="sectColores">
+                        <div class="input-group mb-3 input-group-sm">
+                            <input type="text" id="inputNameColor" class="form-control" placeholder="Azul Francia" value="">
+                            <input type="color" class="form-control form-control-color" style="max-width: 90px;" value="">
+                            <span class="input-group-text" id="infoStatusColor">✅</span>
+                            <input type="button" id="btnActualizarColor" class="form-control btn btn-outline-danger btn-sm p-1" style="max-width: 40px;" value="X">
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="btnCerrarModalColores" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <!-- input filtrar -->
+    <section>
+        <form id="formFiltro" style="max-width: 10cm;" class="mx-auto my-5 fondoGradient pb-3">
+            <label for="inputFiltro1" class="form-label">Filtrar Productos</label>
+            <div class="input-group mb-1">
+                <input class="form-control" type="search" name="q" list="listaOptionsFiltro" id="inputFiltro1" placeholder="Busque">
+                <button class="btn btn-outline-light" type="submit"  id="btnFiltrar" >Buscar</button>
+            </div>
+
+              <datalist id="listaOptionsFiltro">  </datalist>
+
+            <div class="text-end">
+                <button class="btn btn-link py-0 text-warning" id="btnQuitarFiltro">quitar filtro</button>
+            </div>
+        </form>
+    </section>
+
+    <div class="table-responsive" id="containerArticulos">
+        <section style="width: 100%;height: 5cm;margin: auto;" class="mx-auto my-3 fondoGradient placeholder position-relative">
+            <div class="spinner-border position-absolute bottom-50 end-50" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+        </section>
+    </div>
+
+    <!-- moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/es-mx.min.js" integrity="sha512-xDkjENZG+aLSnyKKVe8hFVXGnxSUXZmTHifRsaaGhRhFpEhLJTksMuqB/9zQHJ3xYwG0JAhFi0a6eG41n1I6/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/js/adminStock.js"></script>
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

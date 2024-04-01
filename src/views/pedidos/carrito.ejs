@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head') %>
+
+    <title>Carrito - EliBaExpress</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <h1 class="text-center">Carrito</h1>
+
+    <nav class="fondoGradient fixe-top mx-3" style="margin-top: 2cm;">
+        <div class="d-flex justify-content-around flex-wrap">
+            <div>
+                <p class="mb-1"> <i class="me-1" id="iTotalProductos">8</i> Productos</p>
+                <p class="mb-2">Total a Pagar $<i class="ms-2" id="iTotalApagar" >89000</i> </p>
+            </div>
+            <button class="btn btn-success">Realizar Pedido</button>
+        </div>
+    </nav>
+    
+
+        <section class="d-flex flex-wrap justify-content-start mt-2" id="containerCarrito">
+                <section style="width:8cm;" class="container my-3 fondoGradient placeholder">
+                    <div class="row">
+                        <div class="col-4 ms-auto">
+                            <button class="btn btn-danger btn-sm">QUITAR</button>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <a href="http://" target="_blank" class="text-warning"><p class="col mb-1 placeholder">  </p></a>
+                    </div>
+                    <div class="row text-end">
+                        <p class="ms-auto py-0 mb-0 px-1 text-truncate opacity-50 placeholder">codStock </p>
+                    </div>
+                    <div class="row text-center">
+                        <p class="col py-0 px-1 mb-2 placeholder">Precio x corte en metros o kg</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mx-auto">
+                            <div class="input-group mb-3 " >
+                                <button class="btn btn-outline-light" type="button" id="button-addon1">-</button>
+                                <input type="number" class="form-control" placeholder="1" value="1" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                <button class="btn btn-outline-light" type="button" id="button-addon1">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <p class="col mb-1 text-decoration-underline">color</p>
+                        <p class="col mb-1 text-decoration-underline">medida</p>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-2 rounded my-auto ms-2" style="width: 20px;height: 20px;background-color: blue;"></div>
+                        <p class="col mb-2"> azul francia</p>
+                        <p class="col mb-2">10kg</p>
+                    </div>
+                    
+                    <div class="row">
+                        <p class="col">$12000 <i>por kg.</i> </p>
+                        <p class="col">Total <i class="ps-2"> $120000</i> </p>
+                    </div>
+                    <div class="row">
+                        <i class="col py-0 mb-0 px-1 text-truncate opacity-50">codDisponibilidad 98098098098</i>
+                    </div>
+                    
+                </section>
+                
+        </section>
+    
+        <nav class="fondoGradient  m-3">
+            <div class="text-center">
+                <button class="btn btn-outline-light" id="btnVaciarCarrito">Vaciar Carrito</button>
+            </div>
+        </nav>
+
+    <script src="/js/carrito.js"></script>
+    <%- include('../partials/footer') %>
+
+</body>
+</html>
