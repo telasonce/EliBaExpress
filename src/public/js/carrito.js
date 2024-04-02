@@ -89,7 +89,7 @@ localStorage.setItem('carrito', JSON.stringify(dataProductsYcarrito.carritoVerif
                 <p class="col mb-1 text-decoration-underline">medida</p>
             </div>
             <div class="row text-center">
-                <div class="col-2 rounded my-auto ms-2" style="width: 20px;height: 20px;background-color: ${dataProductsYcarrito.colores.filter(color => color.color == item.disponibilidad.color)[0].html   };"></div>
+                <div class="col-2 rounded my-auto ms-2" style="width: 20px;height: 20px;background-color: ${ dataProductsYcarrito.colores.filter(color => color.color == item.disponibilidad.color)[0].html   };"></div>
                 <p class="col mb-2"> ${item.disponibilidad.color} </p>
                 <p class="col mb-2"> ${item.disponibilidad.medida} ${item.product.unidadDeMedida} </p>
             </div>
@@ -187,4 +187,38 @@ btnVaciarCarrito.addEventListener('click',e=>{
     let containerCarrito = document.querySelector('#containerCarrito')
     containerCarrito.innerHTML = ''
     calcularYrenderizarTotales()
+})
+
+
+// Realizar pedido
+let btnRealizarPedido = document.querySelector('#btnRealizarPedido')
+btnRealizarPedido.addEventListener('click', async e => {
+    btnRealizarPedido.innerHTML = loading
+    btnRealizarPedido.disabled = true
+
+    try {
+        const res = await fetch( '/pedidos/api/realizarPedido', { 
+            method: 'POST', 
+            body: JSON.stringify({ carrito: JSON.parse(localStorage.getItem('carrito')) }),  
+            headers: {  "Content-Type": "application/json" },});
+        const resData = await res.json();
+        console.log(resData);
+        if (resData.status == 'ok') {
+            btnRealizarPedido.innerHTML = 'Pedido Guardado Correctamente ' + loading
+            
+            // carrito vuelve a 0
+            localStorage.setItem('carrito', JSON.stringify([]));
+            
+            return resData.data
+        } else {
+            btnRealizarPedido.innerHTML = resData.message
+            return 'error'
+        }        
+    } catch (error) {
+        btnRealizarPedido.innerHTML = error.message
+        btnRealizarPedido.disabled = false
+        console.log(error);
+        return 'error'
+    }
+
 })

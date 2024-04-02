@@ -52,11 +52,9 @@ carrito: [
         cantidad, cod, codStock
      },
 ]
- [
-    { 
+ [{ 
         cantidad:1 , cod:"1054038123630", codStock:"1711652818600"
-     }
-]
+     }]
 
 /verificarStock retorna:
     { message:'Get pruducts, carrito, colores', status:'ok', 
@@ -65,3 +63,31 @@ carritoAmostrar: [
     {itemCarrito:item, disponibilidad, product}
 ]
 -- carritoUpdatedAt: 098098 Date.now()
+
+-- tabla pedidos
+pedidos: [
+    createdAt,
+    updatedAt,
+    estados:[],
+    pedido:[
+        {
+            idProducto,
+            titulo,
+            unidadDeMedida,
+            descripcionStock,
+            medida,
+            cantidad,
+            codStock,
+            cod,
+            color,
+            precio,
+            total
+        }
+    ],
+    totalPedido,
+    pagos:[],
+    idUser,
+    emailUser,
+    datosEnvio:[],
+    comentarios:[]
+]

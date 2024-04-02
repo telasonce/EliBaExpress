@@ -60,8 +60,218 @@
         }
     </style>
 
-<nav class="text-end" style="position: fixed; top:89px;right: 10px; z-index: 10;">
-    <section class="d-flex justify-content-end" >
+<!-- pag detalle pedido -->
+<section class="d-flex flex-wrap justify-content-center">
+
+<article class="fondoGradient  m-2" style="max-width: 320px;">
+    <div class="ms-3 d-flex align-content-around flex-wrap h-100" >
+        <div class="">
+            <h6 class="mb-1">Pedido <i class="me-1">8987987987</i></h6>
+            <h5 class="mb-2">moshechami@gmail.com <i class="ms-2"> </i> </h5>
+        </div>
+        <div>
+            <div class="d-flex align-items-center justify-content-around"><p class="mb-2">Pedido realizado </p><i class="ms-3"> 27/mar/2024 <br> hace 10 dias </i> </div>
+            <p class="my-3">Actualizado <i class="ms-2"> Hace 2 horas </i> </p>
+        </div>
+        <div>
+            <button class="btn btn-danger">Cancelar Pedido</button>
+        </div>
+    </div>
+</article>
+<article class="fondoGradient  m-2" style="max-width: 320px;">
+    <div >
+        <div class="ms-3">
+            <p class="mb-1 mt-3">Monto total del pedido: <i class="me-1">$890890</i></p>
+            <p class="mb-2">Total pagado: <i class="ms-2"> $0 </i> </p>
+            <div class="d-flex align-items-center justify-content-around m-3">
+                <button class="btn btn-primary" >Pagar con Mercado Pago</button> 
+            </div>
+            <div class="mt-3">
+                <p class="mb-2 d-inline me-4">Estado del pago: </p>
+                <span class="badge text-bg-success">Aprobado</span>
+                <span class="badge text-bg-warning">Pendiente</span>
+                <span class="badge text-bg-danger">Cancelado</span>
+                <span class="badge text-bg-danger">Rechazado</span>
+                <span class="badge text-bg-danger">Devolucion</span>
+            </div>
+
+            <div class="mt-2">
+                <p class="mb-1">Estados del pedido: </p>
+                <p class="mb-2 ms-0"> <i class="ms-1"> ( 22/1 10:20 hs. )</i> - Esperando Pago</p>
+            </div>
+        </div>
+    </div>
+</article>
+<article class="fondoGradient  m-2" style="max-width: 320px;">
+    <div class="d-flex justify-content-around flex-wrap">
+        <div>
+            <p class="mb-1">Comentarios:</p>
+            <div class="mb-3">
+                <b> - Por favor que sea buena la tela</b> <br>
+            </div>
+            <form class="mb-1 text-end">
+                <textarea class="form-control" name="textAreaComentario" rows="3"></textarea>
+                <button type="submit" class="btn btn-outline-light m-2">Enviar comentario</button>
+            </form>
+        </div>
+    </div>
+</article>
+
+</section>
+
+<section class=" mt-2 fondoGradient px-1 mx-auto" id="containerPedido" style="max-width: 25cm;">
+    <div>
+        <h5 class="col mb-1 text-warning"> PEDIDO </h5>
+    </div>
+    <section class="d-flex flex-wrap justify-content-start">
+
+        <article class="fondoGradient container m-1" style="max-width: 320px;">
+            <div class="row ">
+                <p class="col mb-1 text-warning"> Lienzo 20/20 algodón, x rollo 55mts, ancho 2.55mts. </p>
+            </div>
+            <div class="row text-center">
+                <p class="col py-0 px-1 mb-0 opacity-75">Precio x corte en metros o kg</p>
+            </div>
+            <div class="row text-center">
+                <p class="col mb-1 text-decoration-underline">cantidad</p>
+                <p class="col mb-1 text-decoration-underline">medida</p>
+                <p class="col mb-1 text-decoration-underline">color</p>
+            </div>
+            <div class="row text-center">
+                <p class="col mb-2 ps-0 pt-1"> 1 </p>
+                <p class="col mb-2">10kg</p>
+                <p class="col mb-2 ps-0 pt-1"> azul francia</p>
+            </div>
+            
+            <div class="row">
+                <p class="col">$12000 <i>por kg.</i> </p>
+                <p class="col px-0">Total <b class="ps-1"> $12000000</b> </p>
+            </div>
+        </article>
+        
+        
+    </section>
+</section>
+
+<article class="fondoGradient mx-auto m-2" style="max-width: 15cm;">
+    <div class="d-flex justify-content-around flex-wrap">
+        <div>
+            <h5 class="mb-1 text-warning">Datos de envio:</h5>
+            
+            <form class="mb-1 text-end">
+                <div class="row  mb-2 align-items-center">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Apellido y Nombre</label>
+                    </div>
+                    <div class=" mt-0">
+                      <input type="text" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row  align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Teléfono</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="number" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">WhatsApp</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="number" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Dni</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="number" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center justify-content-around mb-0">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Cuit</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="number" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">IVA</label>
+                      </div>
+                    <div class="col-8">
+                        <select class=" form-select form-select-sm" aria-label="Small select example">
+                            <option selected>Tipo de IVA</option>
+                            <option value="Consumidor Final">Consumidor Final</option>
+                            <option value="Responsable Inscripto">Responsable Inscripto</option>
+                            <option value="Monotributo">Monotributo</option>
+                            <option value="Exento">Exento</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Dirección</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="text" placeholder="Calle" id="inputPassword6" class="form-control">
+                      <input type="number" placeholder="Piso" id="inputPassword6" class="form-control">
+                      <input type="text" placeholder="Depto" id="inputPassword6" class="form-control">
+                      <input type="text" placeholder="Entre calles" id="inputPassword6" class="form-control">
+                      <input type="number" placeholder="Código postal" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Localidad</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="text" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Provincia</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="text" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center justify-content-around mb-1">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">TRANSPORTE</label>
+                    </div>
+                    <div class="col-7">
+                      <input type="text" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+                <div class="row  mb-2 align-items-center">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Detalles</label>
+                    </div>
+                    <div class=" mt-0">
+                      <input type="text" id="inputPassword6" class="form-control">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-outline-light m-2">Guardar datos</button>
+            </form>
+        </div>
+    </div>
+</article>
+
+
+    
+    
+    
+    
+    <nav class="text-end" style1="position: fixed; top:89px;right: 10px; z-index: 10;">
+        <section class="d-flex justify-content-end" >
 
       <div class="rounded-pill  p-1 m-1 iconoCarrito position-relative" >
         <a href="http://" target="_blank" class="text-light ">
