@@ -68,7 +68,7 @@ carritoAmostrar: [
 pedidos: [
     createdAt,
     updatedAt,
-    estados:[],
+    estados:[{date: Date.now(), msg:'Esperando Pago'}],
     pedido:[
         {
             idProducto,
@@ -89,5 +89,15 @@ pedidos: [
     idUser,
     emailUser,
     datosEnvio:[],
-    comentarios:[]
+    comentarios:[],
+    statusPago:'',
+    PREFERENCE_ID:'',
+    external_reference:09809809
 ]
+
+-- tabla colores
+colores: {
+    color:'azul',
+    html: '#988898',
+    colorYhtml: 'azul || #897987'
+}

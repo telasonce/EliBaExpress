@@ -76,6 +76,26 @@
   <%- include('../partials/header') %>
     <% if (product) { %>
 
+      <style>
+        .estiloPicker {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          background-color: transparent;
+          border: none;
+        }
+        .estiloPicker::-webkit-color-swatch {
+          border-radius: 8px;
+          border: none;
+        }
+        .estiloPicker::-moz-color-swatch {
+          border-radius: 8px;
+          border: none;
+        }
+      </style>
+
       <div class="mx-auto w-75 alert alert-secondary <%= product.isActive ? 'd-none' : '' %>" role="alert"> El producto
         se encuentra temporalmente pausado.</div>
 
@@ -176,9 +196,11 @@
                   <p class="col mb-1 text-decoration-underline">color</p>
                   <p class="col mb-1 text-decoration-underline">medida</p>
               </div>
-              <div class="row text-center">
-                  <!-- <div class="col-2 rounded my-auto ms-3" style="width: 20px;height: 20px;background-color: blue;"></div> -->
-                  <p class="col mb-2 ps-0 pt-1"> <%= disponibilidad.color %> </p>
+              <div class="row text-center align-content-center">
+                <div class="col  mb-2">
+                  <input class="d-inline p-0 border-0 rounded-pill estiloPicker" style="border-radius: 50%;" type="color" value="<%= disponibilidad.color.split('||')[1] %>" disabled>
+                  <p class="d-inline mb-2 ps-0 p-0 rounded"> <%= disponibilidad.color.split('||')[0] %> </p>
+                </div>
                   <p class="col mb-2"> <%= disponibilidad.medida %> <%= product.unidadDeMedida %> </p>
               </div>
               

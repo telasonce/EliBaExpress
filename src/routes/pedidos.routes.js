@@ -9,8 +9,8 @@ const permisosMiddleware = require('../middlewares/permisosMiddleware.js')
 
 router.get('/carrito', pedidosController.carrito);
 // router.get('/misPedidos', pedidosController.carrito);
-// router.get('/detalle/:id', pedidosController.carrito);
-// router.get('/admin', permisosMiddleware, pedidosController.carrito);
+router.get('/detalle/:idPedido', pedidosController.detallePedido);
+router.get('/admin', permisosMiddleware, pedidosController.adminPedidos);
 
 // Api pedidos
 router.post('/api/verificarCarrito', pedidosApiController.verificarCarrito);

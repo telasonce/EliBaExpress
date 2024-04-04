@@ -243,7 +243,7 @@ async function getColoresFetch() {
                             </div>
                             <div class="col">
                                 <select class="form-select form-select-sm" id="selectColor">
-                                    <option selected value="${color}">${color || 'seleccionar'}</option>
+                                    <option selected value="${color}">${color.split('||')[0] || 'seleccionar'}</option>
                                 </select>
                             </div>
                             <div class="col">
@@ -263,7 +263,7 @@ async function getColoresFetch() {
                             </div>
                     `
                     colores.forEach(color => {
-                        divDisponibilidad.querySelector('#selectColor').innerHTML += `<option value="${color.color}"> ${color.color} </option>`
+                        divDisponibilidad.querySelector('#selectColor').innerHTML += `<option value="${color.colorYhtml}"> ${color.colorYhtml.split('||')[0]} </option>`
                     })
                     artFormStock.querySelector('#sectDisponibilidad').appendChild(divDisponibilidad)
                 }
@@ -371,7 +371,7 @@ async function getColoresFetch() {
                 btnSaveNewColor.value = '- - -'
                 const res = await fetch( '/api/colores/admin/save', {
                     method: 'POST', 
-                    body: JSON.stringify({newColor:{color: inputNameNewColor.value, html: inputPickerNEwColor.value}}),  
+                    body: JSON.stringify({newColor:{color: inputNameNewColor.value, html: inputPickerNEwColor.value, colorYhtml:`${inputNameNewColor.value}||${inputPickerNEwColor.value}`}}),  
                     headers: {  "Content-Type": "application/json" },
                 });
                 
@@ -399,8 +399,8 @@ function acomodarColoresEnModal(colores) {
         divFormColor.classList.add('input-group', 'mb-3', 'input-group-sm')
         divFormColor.id = 'divFormColor'
         divFormColor.innerHTML = `
-            <input type="text" id="inputNameColor" class="form-control" placeholder="${color.color}" value="${color.color}">
-            <input type="color" id="inputPickerColor" class="form-control form-control-color" style="max-width: 90px;" value="${color.html}">
+            <input type="text" id="inputNameColor" class="form-control" placeholder="${color.colorYhtml.split('||')[0]}" value="${color.colorYhtml.split('||')[0]}">
+            <input type="color" id="inputPickerColor" class="form-control form-control-color" style="max-width: 90px;" value="${color.colorYhtml.split('||')[1]}">
             <span class="input-group-text" id="infoStatusColor"></span>
             <input type="button" id="btnEliminarColor" class="form-control btn btn-outline-danger btn-sm p-1" style="max-width: 40px;" value="X">
         `
@@ -412,7 +412,7 @@ function acomodarColoresEnModal(colores) {
         inputNameColor.onchange = async (e)=>{
             infoStatusColor.innerHTML = loading
             inputNameColor.value = capitalizePalabras(inputNameColor.value)
-            let result = await updateColor(color._id, {color:inputNameColor.value, html:inputPickerColor.value})
+            let result = await updateColor(color._id, {color:inputNameColor.value, html:inputPickerColor.value, colorYhtml:`${inputNameColor.value} ||${inputPickerColor.value}`})
             if (result == 'ok') {
                 infoStatusColor.innerHTML = '✅'
             } else {
@@ -422,7 +422,7 @@ function acomodarColoresEnModal(colores) {
         inputPickerColor.onchange = async (e)=>{
             infoStatusColor.innerHTML = loading
             inputNameColor.value = capitalizePalabras(inputNameColor.value)
-            let result = await updateColor(color._id, {color:inputNameColor.value, html:inputPickerColor.value})
+            let result = await updateColor(color._id, {color:inputNameColor.value, html:inputPickerColor.value, colorYhtml:`${inputNameColor.value} ||${inputPickerColor.value}`})
             if (result == 'ok') {
                 infoStatusColor.innerHTML = '✅'
             } else {

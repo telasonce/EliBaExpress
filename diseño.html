@@ -60,6 +60,20 @@
         }
     </style>
 
+    <section>
+        user
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+            </svg>
+          coin
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+            <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
+          </svg>
+
+    </section>
+
 <!-- pag detalle pedido -->
 <section class="d-flex flex-wrap justify-content-center">
 
@@ -140,7 +154,7 @@
             <div class="row text-center">
                 <p class="col mb-2 ps-0 pt-1"> 1 </p>
                 <p class="col mb-2">10kg</p>
-                <p class="col mb-2 ps-0 pt-1"> azul francia</p>
+                <p class="col mb-2 me-1 px-0 pt-0 rounded text-center" style="border: solid red 5px "> azul francia</p>
             </div>
             
             <div class="row">
@@ -158,53 +172,53 @@
         <div>
             <h5 class="mb-1 text-warning">Datos de envio:</h5>
             
-            <form class="mb-1 text-end">
+            <form class="mb-1 text-end" id="formDatosDeEnvio">
                 <div class="row  mb-2 align-items-center">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Apellido y Nombre</label>
+                      <label for="inputNombre" class="col-form-label">Apellido y Nombre</label>
                     </div>
                     <div class=" mt-0">
-                      <input type="text" id="inputPassword6" class="form-control">
+                      <input type="text" id="inputNombre" placeholder="Apellido y Nombre" value="" name="nombre" class="form-control">
                     </div>
                 </div>
-                <div class="row  align-items-center justify-content-around mb-1">
+                <div class="row g-3 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Teléfono</label>
+                      <label for="inputTelefono" class="col-form-label">Teléfono</label>
                     </div>
                     <div class="col-7">
-                      <input type="number" id="inputPassword6" class="form-control">
+                      <input type="number" id="inputTelefono" placeholder="Teléfono" value="" name="telefono" class="form-control">
                     </div>
                 </div>
-                <div class="row g-3 align-items-center justify-content-around mb-1">
+                <div class="row g-3 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">WhatsApp</label>
+                      <label for="inputWhatsapp" class="col-form-label">WhatsApp</label>
                     </div>
                     <div class="col-7">
-                      <input type="number" id="inputPassword6" class="form-control">
+                      <input type="number" id="inputWhatsapp" name="whatsapp" placeholder="WhatsApp" value="" class="form-control">
                     </div>
                 </div>
-                <div class="row g-3 align-items-center justify-content-around mb-1">
+                <div class="row g-3 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Dni</label>
+                      <label for="inputDni" class="col-form-label">Dni</label>
                     </div>
                     <div class="col-7">
-                      <input type="number" id="inputPassword6" class="form-control">
+                      <input type="number" id="inputDni" name="dni" placeholder="Dni" value="" class="form-control">
                     </div>
                 </div>
-                <div class="row g-3 align-items-center justify-content-around mb-0">
+                <div class="row g-3 align-items-center justify-content-between mb-0">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Cuit</label>
+                      <label for="inputCuit" class="col-form-label">Cuit</label>
                     </div>
                     <div class="col-7">
-                      <input type="number" id="inputPassword6" class="form-control">
+                      <input type="number" id="inputCuit" name="cuit" placeholder="Cuit" value="" class="form-control">
                     </div>
                 </div>
-                <div class="row align-items-center justify-content-around mb-1">
+                <div class="row g-2 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">IVA</label>
+                        <label for="selectTipoIva" class="col-form-label">IVA</label>
                       </div>
-                    <div class="col-8">
-                        <select class=" form-select form-select-sm" aria-label="Small select example">
+                    <div class="col-7">
+                        <select class=" form-select form-select-sm" id="selectTipoIva" name="tipoIva" aria-label="Small select example">
                             <option selected>Tipo de IVA</option>
                             <option value="Consumidor Final">Consumidor Final</option>
                             <option value="Responsable Inscripto">Responsable Inscripto</option>
@@ -214,48 +228,48 @@
                     </div>
                 </div>
 
-                <div class="row g-3 align-items-center justify-content-around mb-1">
+                <div class="row g-3 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Dirección</label>
+                      <label for="inputCalle" class="col-form-label">Dirección</label>
                     </div>
                     <div class="col-7">
-                      <input type="text" placeholder="Calle" id="inputPassword6" class="form-control">
-                      <input type="number" placeholder="Piso" id="inputPassword6" class="form-control">
-                      <input type="text" placeholder="Depto" id="inputPassword6" class="form-control">
-                      <input type="text" placeholder="Entre calles" id="inputPassword6" class="form-control">
-                      <input type="number" placeholder="Código postal" id="inputPassword6" class="form-control">
+                      <input type="text" placeholder="Calle" value="" id="inputCalle" name="calle" class="form-control">
+                      <input type="number" placeholder="Piso" value="" id="inputPiso" name="piso" class="form-control">
+                      <input type="text" placeholder="Depto" value="" id="inputDepto" name="depto" class="form-control">
+                      <input type="text" placeholder="Entre calles" value="" id="inputEntreCalles" name="entreCalles" class="form-control">
+                      <input type="number" placeholder="Código postal" value="" id="inputCp" name="cp" class="form-control">
                     </div>
                 </div>
-                <div class="row g-3 align-items-center justify-content-around mb-1">
+                <div class="row g-3 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Localidad</label>
+                      <label for="inputLocalidad" class="col-form-label">Localidad</label>
                     </div>
                     <div class="col-7">
-                      <input type="text" id="inputPassword6" class="form-control">
+                      <input type="text" id="inputLocalidad" name="localidad" placeholder="Localidad" value="" class="form-control">
                     </div>
                 </div>
-                <div class="row g-3 align-items-center justify-content-around mb-1">
+                <div class="row g-3 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Provincia</label>
+                      <label for="inputProvincia" class="col-form-label">Provincia</label>
                     </div>
                     <div class="col-7">
-                      <input type="text" id="inputPassword6" class="form-control">
+                      <input type="text" id="inputProvincia" name="provincia" placeholder="Provincia" value="" class="form-control">
                     </div>
                 </div>
-                <div class="row g-3 align-items-center justify-content-around mb-1">
+                <div class="row g-3 align-items-center justify-content-between mb-1">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">TRANSPORTE</label>
+                      <label for="inputTransporte" class="col-form-label">TRANSPORTE</label>
                     </div>
                     <div class="col-7">
-                      <input type="text" id="inputPassword6" class="form-control">
+                      <input type="text" id="inputTransporte" name="transporte" placeholder="TRANSPORTE" value="" class="form-control">
                     </div>
                 </div>
                 <div class="row  mb-2 align-items-center">
                     <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Detalles</label>
+                      <label for="inputDetalles" class="col-form-label">Detalles</label>
                     </div>
                     <div class=" mt-0">
-                      <input type="text" id="inputPassword6" class="form-control">
+                      <input type="text" id="inputDetalles" name="detalles" placeholder="Detalles" value="" class="form-control">
                     </div>
                 </div>
 
@@ -269,7 +283,7 @@
     
     
     
-    
+    <!-- bla bla -->
     <nav class="text-end" style1="position: fixed; top:89px;right: 10px; z-index: 10;">
         <section class="d-flex justify-content-end" >
 

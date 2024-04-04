@@ -2,6 +2,7 @@
 const mongoDb = require('../../database/configMongoDb')
 const ObjectId = require('mongodb').ObjectId;
 
+const MercadoPago = require('../api/mercadoPagoApiController')
 
 module.exports = {
     verificarCarrito: async(req, res) => {
@@ -129,6 +130,11 @@ module.exports = {
                 }
             });
 
+            // creo la preferencia en MP
+            let external_reference = Date.now()
+            let PreferenciaId = await MercadoPago.crearPreferenciaId(external_reference, totalPedido)
+                // console.log('PreferenciaId')
+                // console.log(PreferenciaId)
             let dataNewPedido = {
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
@@ -139,10 +145,13 @@ module.exports = {
                 idUser: user._id,
                 emailUser: user.email,
                 datosEnvio:[],
-                comentarios:[]
+                comentarios:[],
+                statusPago: 'pendiente',
+                PREFERENCE_ID: PreferenciaId.id,
+                external_reference
             }
 
-            let resDB = await mongoDb.insertDocuments('products', [dataNewPedido])
+            let resDB = await mongoDb.insertDocuments('pedidos', [dataNewPedido])
 
 
             res.json({ message:' Pedido Guardado ', status:'ok', data: {pedido, resDB, dataNewPedido} })

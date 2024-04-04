@@ -89,8 +89,8 @@ localStorage.setItem('carrito', JSON.stringify(dataProductsYcarrito.carritoVerif
                 <p class="col mb-1 text-decoration-underline">medida</p>
             </div>
             <div class="row text-center">
-                <div class="col-2 rounded my-auto ms-2" style="width: 20px;height: 20px;background-color: ${ dataProductsYcarrito.colores.filter(color => color.color == item.disponibilidad.color)[0].html   };"></div>
-                <p class="col mb-2"> ${item.disponibilidad.color} </p>
+                <div class="col-2 rounded my-auto ms-2" style="width: 20px;height: 20px;background-color: ${ item.disponibilidad.color.split('||')[1]  };"></div>
+                <p class="col mb-2"> ${item.disponibilidad.color.split('||')[0]} </p>
                 <p class="col mb-2"> ${item.disponibilidad.medida} ${item.product.unidadDeMedida} </p>
             </div>
             
@@ -209,6 +209,9 @@ btnRealizarPedido.addEventListener('click', async e => {
             // carrito vuelve a 0
             localStorage.setItem('carrito', JSON.stringify([]));
             
+            // redireccionamiento al pedido
+            window.location.href = '/pedidos/detalle/'+ resData.data.resDB.insertedIds[0]
+
             return resData.data
         } else {
             btnRealizarPedido.innerHTML = resData.message
@@ -222,3 +225,5 @@ btnRealizarPedido.addEventListener('click', async e => {
     }
 
 })
+
+//                 <div class="col-2 rounded my-auto ms-2" style="width: 20px;height: 20px;background-color: ${  dataProductsYcarrito.colores.filter(color => color.color == item.disponibilidad.color)[0].html   };"></div>

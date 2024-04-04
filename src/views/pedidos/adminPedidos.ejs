@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head') %>
+
+    <title>Administrar Pedidos - EliBaExpress</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <h1 class="text-center">Administrar Pedidos</h1>
+<% pedidos.forEach(pedido => { %>
+ <div>
+    <p><%= pedido.emailUser %> <a href="/pedidos/detalle/<%= pedido._id %>" target="_blank">Ver</a> </p>
+ </div>
+<% }) %>
+
+    <!-- <script src="/js/carrito.js"></script> -->
+    <%- include('../partials/footer') %>
+
+</body>
+</html>
