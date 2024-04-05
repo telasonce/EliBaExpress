@@ -92,7 +92,8 @@ pedidos: [
     comentarios:[],
     statusPago:'',
     PREFERENCE_ID:'',
-    external_reference:09809809
+    external_reference:09809809,
+    merchant_order_id:878798
 ]
 
 -- tabla colores

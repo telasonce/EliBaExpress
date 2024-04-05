@@ -3,12 +3,25 @@ require('dotenv').config();
 
 const mongoDb = require('../../database/configMongoDb')
 const ObjectId = require('mongodb').ObjectId;
-
+const axios = require('axios')
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 const client = new MercadoPagoConfig({ accessToken: process.env.AccessToken_MercadoPago });
 const preference = new Preference(client);
 const payment = new Payment(client);
 
+async function postMPgetpayments(id = 1) {
+    try { const response = await axios.get('https://api.mercadopago.com/v1/payments/' + id, {
+            headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } });
+            return response.data
+    } catch (error) { return error }
+}
+
+async function postMPgetmerchant_orders(id = 1) {
+    try { const response = await axios.get('https://api.mercadopago.com/merchant_orders/' + id, {
+            headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } });
+            return response.data
+    } catch (error) { return error }
+}
 
 module.exports = {
     crearPreferenciaId: async(external_reference, totalPedido) => {
@@ -35,7 +48,7 @@ module.exports = {
                 "failure": "https://www.failure.com",
                 "pending": "https://www.pending.com"
             },
-            "notification_url": "https://www.your-site.com/ipn",
+            "notification_url": "https://elibaexpress.com.ar/api/webhooks?source_news=ipn",
             "statement_descriptor": "EliBaExpress",
             "external_reference": external_reference,
             "binary_mode": true,
@@ -66,11 +79,70 @@ module.exports = {
         }
         let resDB = await mongoDb.insertDocuments('testWebhooks', [data])
 
+        // Arranca
+        let merchant_order = null;
+        // let estados = []
+         switch (req.query.topic) { // llega payment o merchantOrder
 
-        res.json({
-            resDB,
-            status:200
-        })
+            case "payment":
+                postMPgetpayments(req.query.id).then(dataPayment => {
+                    postMPgetmerchant_orders(dataPayment.order.id).then(dataMerchant => {
+                        merchant_order = dataMerchant
+                        calculatePaidAmount(merchant_order)
+                        })
+                    })
+                break;
+
+            case "merchant_order":
+                postMPgetmerchant_orders(req.query.id).then(data => {
+                    merchant_order = data
+                    calculatePaidAmount(merchant_order)
+                    })
+                break;
+
+                default:
+                    res.json({ status:200 })
+                break;
+        }
+
+        async function calculatePaidAmount(merchantOrder) {
+            let pagos = []
+            let totalPagado = 0
+            let msg = ''
+            let estado = ''
+            let statusPago = merchantOrder.order_status //payment_required o reverted o paid
+            merchantOrder.payments.forEach(payment => {
+                if (payment.status == 'approved') {
+                    pagos.push({
+                        id: payment.id,
+                        pago: payment.total_paid_amount,
+                        fecha: payment.date_approved
+                    })
+                    totalPagado += payment.transaction_amount;
+                }
+            });
+                if (totalPagado >= merchantOrder.total_amount ) {
+                    msg = 'Totalmente pagado'
+                    estado = 'Pago Completo'
+                } else {
+                    msg = 'Aún no pagado'
+                    estado = 'Pago Incompleto'
+                }
+
+                let dataUpdatePedido = {
+                    updatedAt: Date.now(),
+                    statusPago,
+                    pagos,
+                    merchant_order_id: merchantOrder.id
+                }
+                let response1 = await mongoDb.updateDocuments('pedidos', {external_reference: merchantOrder.external_reference}, dataUpdatePedido)
+                let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: merchantOrder.external_reference},{ $push: { estados: {date: Date.now(), msg: estado } } })
+
+                res.json({ status:200 })
+                return {totalPagado, pagos, msg, estado, statusPago}
+        }
+
+
     },
     testWebhooks: async(req, res) => {
         let resDB = await mongoDb.findDocuments('testWebhooks')
@@ -81,7 +153,8 @@ module.exports = {
     },
 
 }
-
+// postMPgetpayments(75622311426).then(data => console.log( data ))
+// postMPgetmerchant_orders(17324341208).then(data => console.log( data ))
 
 
 
@@ -134,3 +207,4 @@ module.exports = {
 //   console.log("Not paid yet. Do not release your item.");
 // }
 
+// console.log(client)
