@@ -33,7 +33,7 @@ async function postWebhookTest(id = 1, topic='merchant_order') {
         console.log(error)
         return error }
 }
-// let res = postWebhookTest(17328116758)
+// let res = postWebhookTest(Number('17350124118'))
 // console.log( res)
 
 module.exports = {
@@ -98,18 +98,18 @@ module.exports = {
          switch (req.query.topic) { // llega payment o merchantOrder
 
             case "payment":
-                postMPgetpayments(Number(req.query.id)).then(dataPayment => {
-                    postMPgetmerchant_orders(dataPayment.order.id).then(dataMerchant => {
+                await postMPgetpayments(Number(req.query.id)).then( async dataPayment => {
+                    await postMPgetmerchant_orders(dataPayment.order.id).then( async dataMerchant => {
                         merchant_order = dataMerchant
-                        calculatePaidAmount(merchant_order)
+                         await calculatePaidAmount(merchant_order)
                         })
                     })
                 break;
 
             case "merchant_order":
-                postMPgetmerchant_orders(Number(req.query.id)).then(data => {
+                await postMPgetmerchant_orders(Number(req.query.id)).then( async data => {
                     merchant_order = data
-                    calculatePaidAmount(merchant_order)
+                    await calculatePaidAmount(merchant_order)
                     })
                 break;
 
@@ -169,8 +169,13 @@ module.exports = {
 
 }
 // postMPgetpayments(75629374702).then(data => console.log( data ))
-// postMPgetmerchant_orders(17328116758).then(data => console.log( data ))
+// postMPgetmerchant_orders(17350124118).then(data => console.log( data ))
 
+ async function getPedidos() {
+     let pedidos = await mongoDb.findDocuments('pedidos',{external_reference:1712343710269})
+     console.log(pedidos) 
+}
+// getPedidos()
 
 
 
