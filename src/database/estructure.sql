@@ -90,7 +90,7 @@ pedidos: [
     emailUser,
     datosEnvio:[],
     comentarios:[],
-    statusPago:'',
+    statusPago:'', //payment_required o reverted o paid
     PREFERENCE_ID:'',
     external_reference:09809809,
     merchant_order_id:878798

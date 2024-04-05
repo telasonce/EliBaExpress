@@ -37,18 +37,24 @@
         <div >
             <div class="ms-2">
                 <p class="mb-1 mt-3">Monto total del pedido: <i class="me-1">$<%= pedido.totalPedido %></i></p>
-                <p class="mb-2">Total pagado: <i class="ms-2"> $0 </i> </p>
+                <p class="mb-2">Total pagado: <i class="ms-2"> $
+                    <% total = 0
+                    pedido.pagos.forEach(pago => { 
+                        total += pago.pago
+                    }) %>
+                    <%= total %>
+                     </i> </p>
                 <div class="text-center bg-light border border-light border-5 rounded">
                     <!-- <button class="btn btn-primary" >Pagar con Mercado Pago</button>  -->
                     <div id="wallet_container" class="mx-auto">  </div>
                 </div>
                 <div class="mt-3">
                     <p class="mb-2 d-inline me-4">Estado del pago: </p>
-                    <span class="badge text-bg-success <%= pedido.statusPago == 'aprobado' || pedido.statusPago == '..' ? '' : 'd-none' %> ">Aprobado</span>
-                    <span class="badge text-bg-warning <%= pedido.statusPago == 'pendiente' || pedido.statusPago == '..' ? '' : 'd-none' %> ">Pendiente</span>
-                    <span class="badge text-bg-danger <%= pedido.statusPago == 'cancelado' || pedido.statusPago == '..' ? '' : 'd-none' %> ">Cancelado</span>
-                    <span class="badge text-bg-danger <%= pedido.statusPago == 'rechazado' || pedido.statusPago == '..' ? '' : 'd-none' %>">Rechazado</span>
-                    <span class="badge text-bg-danger <%= pedido.statusPago == 'devolucion' || pedido.statusPago == '..' ? '' : 'd-none' %>">Devolucion</span>
+                    <span class="badge text-bg-success <%= pedido.statusPago == 'aprobado' || pedido.statusPago == 'paid' ? '' : 'd-none' %> ">Aprobado</span>
+                    <span class="badge text-bg-warning <%= pedido.statusPago == 'pendiente' || pedido.statusPago == 'payment_required' ? '' : 'd-none' %> ">Pendiente</span>
+                    <span class="badge text-bg-danger <%= pedido.statusPago == 'cancelado' || pedido.statusPago == 'reverted' ? '' : 'd-none' %> ">Cancelado</span>
+                    <span class="badge text-bg-danger <%= pedido.statusPago == 'rechazado' || pedido.statusPago == 'reverted' ? '' : 'd-none' %>">Rechazado</span>
+                    <span class="badge text-bg-danger <%= pedido.statusPago == 'devolucion' || pedido.statusPago == 'reverted' ? '' : 'd-none' %>">Devolucion</span>
                 </div>
     
                 <div class="mt-2">

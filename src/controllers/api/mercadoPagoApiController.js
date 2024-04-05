@@ -23,6 +23,19 @@ async function postMPgetmerchant_orders(id = 1) {
     } catch (error) { return error }
 }
 
+async function postWebhookTest(id = 1, topic='merchant_order') {
+    try { const response = await axios.post(`http://localhost:3000/api/webhooks?id=${id}&&topic=${topic}`, {
+            // headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } 
+        });
+            console.log(response)
+            return response 
+    } catch (error) { 
+        console.log(error)
+        return error }
+}
+// let res = postWebhookTest(17328116758)
+// console.log( res)
+
 module.exports = {
     crearPreferenciaId: async(external_reference, totalPedido) => {
         let data = await preference.create({
@@ -115,7 +128,7 @@ module.exports = {
                 if (payment.status == 'approved') {
                     pagos.push({
                         id: payment.id,
-                        pago: payment.total_paid_amount,
+                        pago: payment.transaction_amount,
                         fecha: payment.date_approved
                     })
                     totalPagado += payment.transaction_amount;
@@ -135,26 +148,28 @@ module.exports = {
                     pagos,
                     merchant_order_id: merchantOrder.id
                 }
-                let response1 = await mongoDb.updateDocuments('pedidos', {external_reference: merchantOrder.external_reference}, dataUpdatePedido)
-                let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: merchantOrder.external_reference},{ $push: { estados: {date: Date.now(), msg: estado } } })
+                let response1 = await mongoDb.updateDocuments('pedidos', {external_reference: Number(merchantOrder.external_reference)}, dataUpdatePedido)
+                let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: Number(merchantOrder.external_reference)},{ $push: { estados: {date: Date.now(), msg: estado } } })
 
-                res.json({ status:200 })
+                res.json({ status:200, response1, resultDb2 })
                 return {totalPagado, pagos, msg, estado, statusPago}
         }
 
 
     },
     testWebhooks: async(req, res) => {
-        let resDB = await mongoDb.findDocuments('testWebhooks')
+        let resDB = await mongoDb.findDocuments('pedidos')
+        // let resDB = await mongoDb.findDocuments('testWebhooks')
         res.json({
             status:200,
-            resDB
+            count: resDB.length,
+            resDB: resDB.reverse()
         })
     },
 
 }
-// postMPgetpayments(75622311426).then(data => console.log( data ))
-// postMPgetmerchant_orders(17324341208).then(data => console.log( data ))
+// postMPgetpayments(75629374702).then(data => console.log( data ))
+// postMPgetmerchant_orders(17328116758).then(data => console.log( data ))
 
 
 
