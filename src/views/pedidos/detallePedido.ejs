@@ -3,7 +3,7 @@
 <head>
     <%- include('../partials/head') %>
 
-    <title>Pedido - EliBaExpress</title>
+    <title>Detalle del Pedido - EliBaExpress</title>
     <!-- sdk mercado pago front -->
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
@@ -25,8 +25,8 @@
                 <h5 class="mb-2"> <%= pedido.emailUser %> </h5>
             </div>
             <div>
-                <div class="d-flex align-items-center justify-content-around"><p class="mb-2">Pedido realizado </p><i class="ms-3"> <%= pedido.createdAt %> 27/mar/2024 <br> hace 10 dias </i> </div>
-                <p class="my-3">Actualizado <i class="ms-2"> <%= pedido.updatedAt %> Hace 2 horas </i> </p>
+                <div class="d-flex align-items-center justify-content-around"><p class="mb-2">Pedido realizado </p><i class="ms-3" id="IpedidoRealizado"> <%= pedido.createdAt %> </i> </div>
+                <p class="my-3">Actualizado <i class="ms-4" id="IpedidoActualizado"> <%= pedido.updatedAt %> </i> </p>
             </div>
             <div>
                 <button class="btn btn-danger">Cancelar Pedido</button>
@@ -38,7 +38,7 @@
             <div class="ms-2">
                 <p class="mb-1 mt-3">Monto total del pedido: <i class="me-1">$<%= pedido.totalPedido %></i></p>
                 <p class="mb-2">Total pagado: <i class="ms-2"> $0 </i> </p>
-                <div class="text-center bg-light border border-light border-3 rounded">
+                <div class="text-center bg-light border border-light border-5 rounded">
                     <!-- <button class="btn btn-primary" >Pagar con Mercado Pago</button>  -->
                     <div id="wallet_container" class="mx-auto">  </div>
                 </div>
@@ -54,7 +54,7 @@
                 <div class="mt-2">
                     <p class="mb-1">Estados del pedido: </p>
                     <% pedido.estados.forEach( estado  => { %>
-                        <p class="mb-2 ms-0 fs-6"><i class="ms-1"><%= estado.date %> ( 22/1 10:20 hs. )</i> - <%= estado.msg %></p>
+                        <small class="mb-2 ms-0 fs-6"><i class="ms-1" id="dateEstado"><%= estado.date %> </i> - <%= estado.msg %></small>
                      
                     <% }) %>
                 </div>
@@ -70,7 +70,7 @@
                         <b> - <%= comentario %> </b> <br>
                     <% }) %>
                 </div>
-                <form class="mb-1 text-end">
+                <form class="mb-1 text-end" id="formEnviarComentario">
                     <textarea class="form-control" name="textAreaComentario" rows="3"></textarea>
                     <button type="submit" class="btn btn-outline-light m-2">Enviar comentario</button>
                 </form>
@@ -251,7 +251,11 @@
         <div class="alert alert-secondary w-75 mx-auto" role="alert"> <%= message %> </div>    
     <% } %>
 
-    <!-- <script src="/js/carrito.js"></script> -->
+        <!-- moment -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/es-mx.min.js" integrity="sha512-xDkjENZG+aLSnyKKVe8hFVXGnxSUXZmTHifRsaaGhRhFpEhLJTksMuqB/9zQHJ3xYwG0JAhFi0a6eG41n1I6/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="/js/detallePedido.js"></script>
     <%- include('../partials/footer') %>
 
 </body>
