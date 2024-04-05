@@ -98,7 +98,7 @@ module.exports = {
          switch (req.query.topic) { // llega payment o merchantOrder
 
             case "payment":
-                postMPgetpayments(req.query.id).then(dataPayment => {
+                postMPgetpayments(Number(req.query.id)).then(dataPayment => {
                     postMPgetmerchant_orders(dataPayment.order.id).then(dataMerchant => {
                         merchant_order = dataMerchant
                         calculatePaidAmount(merchant_order)
@@ -107,7 +107,7 @@ module.exports = {
                 break;
 
             case "merchant_order":
-                postMPgetmerchant_orders(req.query.id).then(data => {
+                postMPgetmerchant_orders(Number(req.query.id)).then(data => {
                     merchant_order = data
                     calculatePaidAmount(merchant_order)
                     })
@@ -158,8 +158,8 @@ module.exports = {
 
     },
     testWebhooks: async(req, res) => {
-        let resDB = await mongoDb.findDocuments('pedidos')
-        // let resDB = await mongoDb.findDocuments('testWebhooks')
+        // let resDB = await mongoDb.findDocuments('pedidos')
+        let resDB = await mongoDb.findDocuments('testWebhooks')
         res.json({
             status:200,
             count: resDB.length,
