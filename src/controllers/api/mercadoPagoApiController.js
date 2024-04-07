@@ -57,9 +57,9 @@ module.exports = {
               }
             ],
             "back_urls": {
-                "success": "https://www.success.com",
-                "failure": "https://www.failure.com",
-                "pending": "https://www.pending.com"
+                "success": "http://localhost:3000/pedidos/detalle/0?external_reference="+external_reference,
+                "failure": "http://localhost:3000/pedidos/detalle/0?external_reference="+external_reference,
+                "pending": "http://localhost:3000/pedidos/detalle/0?external_reference="+external_reference
             },
             "notification_url": "https://elibaexpress.com.ar/api/webhooks?source_news=ipn",
             "statement_descriptor": "EliBaExpress",

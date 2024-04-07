@@ -25,13 +25,19 @@ module.exports = {
     },
     detallePedido: async(req, res) => {
         let idPedido = String(req.params.idPedido)
+        let external_reference = Number(req.query.external_reference)
         let user = req.session.userLogged
-        let pedidos = await mongoDb.findDocuments('pedidos', {_id: new ObjectId(idPedido)})
+        let pedidos
+        if (idPedido != '0') {
+            pedidos = await mongoDb.findDocuments('pedidos', {_id: new ObjectId(idPedido)})
+        } else {
+            pedidos = await mongoDb.findDocuments('pedidos', {external_reference})
+        }
         let message = ''
         let pedido = null
         let PublicKey_MercadoPago = process.env.PublicKey_MercadoPago
 
-        if ( pedidos.length == 0 || !idPedido) {
+        if ( pedidos.length == 0 || !idPedido && !external_reference) {
             message = 'Pedido no encontrado'
         } else if( !user ) {
             message = 'Debe iniciar sesión'
