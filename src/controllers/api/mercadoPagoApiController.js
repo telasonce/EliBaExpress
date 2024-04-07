@@ -53,7 +53,7 @@ async function postWebhookTest(id = 1, topic='merchant_order') {
         console.log(error)
         return error }
 }
-// let res = postWebhookTest('17406571248','ll')
+// let res = postWebhookTest('17400551237')
 // console.log(  )
 // postMPgetBuscarPreferences()
 // postMPgetObtenerPreferencia('1321815010-033748f4-4290-4d25-88cf-557a8cdf8d27')
@@ -112,7 +112,7 @@ module.exports = {
             body: req.body,
             url:req.url
         }
-        let resDB = mongoDb.insertDocuments('testWebhooks', [data])
+        let resDB = await mongoDb.insertDocuments('testWebhooks', [data])
 
         // Arranca
         let merchant_order = null;
@@ -123,6 +123,7 @@ module.exports = {
                 await postMPgetpayments(Number(req.query.id)).then( async dataPayment => {
                     await postMPgetmerchant_orders(Number(dataPayment.order.id)).then( async dataMerchant => {
                         merchant_order = dataMerchant
+                        let resDB = await mongoDb.insertDocuments('testWebhooks', [{ dataMerchant }]) //test
                          await calculatePaidAmount(merchant_order)
                         })
                     })
@@ -131,6 +132,7 @@ module.exports = {
             case "merchant_order":
                 await postMPgetmerchant_orders(Number(req.query.id)).then( async data => {
                     merchant_order = data
+                    let resDB = await mongoDb.insertDocuments('testWebhooks', [{ dataMerchant }]) //test
                     await calculatePaidAmount(merchant_order)
                     })
                 break;
@@ -146,7 +148,7 @@ module.exports = {
             let msg = ''
             let estado = ''
             let statusPago = merchantOrder.order_status //payment_required o reverted o paid
-            merchantOrder.payments.forEach(payment => {
+            await merchantOrder.payments.forEach(payment => {
                 if (payment.status == 'approved') {
                     pagos.push({
                         id: payment.id,
