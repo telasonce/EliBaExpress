@@ -105,14 +105,20 @@ module.exports = {
     },
     webhookIpn: async(req, res) => {
         let topic = req.query.topic //payment, chargebacks, merchant_order o point_integration_ipn.
-        let paymentId = req.query.id 
+        let queryId = req.query.id 
 
-        let data = {
-            query: req.query,
-            body: req.body,
-            url:req.url
+        if (topic && queryId) {
+            let data = {
+                queryId, topic, open: false
+            }
+            let resDb = await mongoDb.insertDocuments('notificacionesMp', [data])
+            res.json({ status:200 , resDb})
+            
+        } else {
+            res.json({ status:200 })
         }
         // data.num = 1
+        //  await mongoDb.insertDocuments('testWebhooks', [data])
         //  await mongoDb.insertDocuments('testWebhooks', [data])
         // data.num = 2
         //  await mongoDb.insertDocuments('testWebhooks', [data])
@@ -121,31 +127,28 @@ module.exports = {
 
         // Arranca 
         let merchant_order = null;
-        // let estados = []
-         switch (req.query.topic) { // llega payment o merchant_order
+        //  switch (req.query.topic) { // llega payment o merchant_order
 
-            case "payment":
-                await postMPgetpayments(Number(req.query.id)).then( async dataPayment => {
-                    await postMPgetmerchant_orders(Number(dataPayment.order.id)).then( async dataMerchant => {
-                        merchant_order = dataMerchant
-                        // let resDB = await mongoDb.insertDocuments('testWebhooks', [{ dataMerchant }]) //test
-                         await calculatePaidAmount(merchant_order)
-                        })
-                    })
-                break;
+        //     case "payment":
+        //         await postMPgetpayments(Number(req.query.id)).then( async dataPayment => {
+        //             await postMPgetmerchant_orders(Number(dataPayment.order.id)).then( async dataMerchant => {
+        //                 merchant_order = dataMerchant
+        //                  await calculatePaidAmount(merchant_order)
+        //                 })
+        //             })
+        //         break;
 
-            case "merchant_order":
-                await postMPgetmerchant_orders(Number(req.query.id)).then( async data => {
-                    merchant_order = data
-                    // let resDB = await mongoDb.insertDocuments('testWebhooks', [{ data }]) //test
-                    await calculatePaidAmount(merchant_order)
-                    })
-                break;
+        //     case "merchant_order":
+        //         await postMPgetmerchant_orders(Number(req.query.id)).then( async data => {
+        //             merchant_order = data
+        //             await calculatePaidAmount(merchant_order)
+        //             })
+        //         break;
 
-                default:
-                    res.json({ status:200 })
-                break;
-        }
+        //         default:
+        //             res.json({ status:200 })
+        //         break;
+        // }
 
         async function calculatePaidAmount(merchantOrder) {
             let pagos = []
@@ -181,14 +184,13 @@ module.exports = {
                 let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: Number(merchantOrder.external_reference)},{ $push: { estados: {date: Date.now(), msg: estado } } })
 
                 res.json({ status:200, response1, resultDb2 })
-                // return {totalPagado, pagos, msg, estado, statusPago}
         }
 
 
     },
     testWebhooks: async(req, res) => {
         // let resDB = await mongoDb.findDocuments('pedidos')
-        let resDB = await mongoDb.findDocuments('testWebhooks')
+        let resDB = await mongoDb.findDocuments('notificacionesMp')
         res.json({
             status:200,
             count: resDB.length,

@@ -102,3 +102,8 @@ colores: {
     html: '#988898',
     colorYhtml: 'azul || #897987'
 }
+
+-- tabla notificacionesMp
+notificacionesMp: {
+    queryId, topic, open: false
+}
