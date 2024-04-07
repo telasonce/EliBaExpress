@@ -10,17 +10,37 @@ const preference = new Preference(client);
 const payment = new Payment(client);
 
 async function postMPgetpayments(id = 1) {
-    try { const response = await axios.get('https://api.mercadopago.com/v1/payments/' + id, {
+    try { const response = await axios.get('https://api.mercadopago.com/v1/payments/' + Number(id), {
             headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } });
             return response.data
     } catch (error) { return error }
 }
 
 async function postMPgetmerchant_orders(id = 1) {
-    try { const response = await axios.get('https://api.mercadopago.com/merchant_orders/' + id, {
+    try { const response = await axios.get('https://api.mercadopago.com/merchant_orders/' + Number(id), {
             headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } });
             return response.data
     } catch (error) { return error }
+}
+
+async function postMPgetBuscarPreferences(external_reference ='') {
+    try { const response = await axios.get('https://api.mercadopago.com/checkout/preferences/search?site_id=MLA&external_reference=' + (external_reference), {
+            headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } });
+            console.log(response.data.elements.reverse())
+            return response.data
+    } catch (error) { 
+        console.log(error)
+        return error }
+}
+
+async function postMPgetObtenerPreferencia(id = '') {
+    try { const response = await axios.get('https://api.mercadopago.com/checkout/preferences/' + (id), {
+            headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } });
+            console.log(response.data)
+            return response.data
+    } catch (error) { 
+        console.log(error)
+        return error }
 }
 
 async function postWebhookTest(id = 1, topic='merchant_order') {
@@ -33,8 +53,10 @@ async function postWebhookTest(id = 1, topic='merchant_order') {
         console.log(error)
         return error }
 }
-// let res = postWebhookTest(Number('17406571248'))
-// console.log( res)
+// let res = postWebhookTest('17406571248','ll')
+// console.log(  )
+// postMPgetBuscarPreferences()
+// postMPgetObtenerPreferencia('1321815010-033748f4-4290-4d25-88cf-557a8cdf8d27')
 
 module.exports = {
     crearPreferenciaId: async(external_reference, totalPedido) => {
@@ -61,7 +83,7 @@ module.exports = {
                 "failure": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference,
                 "pending": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference
             },
-            "notification_url": "https://elibaexpress.com.ar/api/webhooks",
+            "notification_url": "https://elibaexpress.com.ar/api/webhooks", //source_news=ipn
             "statement_descriptor": "EliBaExpress",
             "external_reference": external_reference,
             "binary_mode": true,
@@ -90,12 +112,12 @@ module.exports = {
             body: req.body,
             url:req.url
         }
-        let resDB = await mongoDb.insertDocuments('testWebhooks', [data])
+        let resDB = mongoDb.insertDocuments('testWebhooks', [data])
 
         // Arranca
         let merchant_order = null;
         // let estados = []
-         switch (req.query.topic) { // llega payment o merchantOrder
+         switch (req.query.topic) { // llega payment o merchant_order
 
             case "payment":
                 await postMPgetpayments(Number(req.query.id)).then( async dataPayment => {
@@ -152,7 +174,7 @@ module.exports = {
                 let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: Number(merchantOrder.external_reference)},{ $push: { estados: {date: Date.now(), msg: estado } } })
 
                 res.json({ status:200, response1, resultDb2 })
-                return {totalPagado, pagos, msg, estado, statusPago}
+                // return {totalPagado, pagos, msg, estado, statusPago}
         }
 
 
