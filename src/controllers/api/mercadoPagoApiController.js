@@ -53,6 +53,46 @@ async function postWebhookTest(id = 1, topic='merchant_order') {
         console.log(error)
         return error }
 }
+
+
+async function calculatePaidAmount(merchantOrder, notificacion) {
+    let pagos = []
+    let totalPagado = 0
+    let msg = ''
+    let estado = ''
+    let statusPago = merchantOrder.order_status //payment_required o reverted o paid
+    await merchantOrder.payments.forEach(payment => {
+        if (payment.status == 'approved') {
+            pagos.push({
+                id: payment.id,
+                pago: payment.transaction_amount,
+                fecha: payment.date_approved
+            })
+            totalPagado += payment.transaction_amount;
+        }
+    });
+        if (totalPagado >= merchantOrder.total_amount ) {
+            msg = 'Totalmente pagado'
+            estado = 'Pago Completo'
+        } else {
+            msg = 'Aún no pagado'
+            estado = 'Pago Incompleto'
+        }
+
+        let dataUpdatePedido = {
+            updatedAt: Date.now(),
+            statusPago,
+            pagos,
+            merchant_order_id: merchantOrder.id
+        }
+        let response1 = await mongoDb.updateDocuments('pedidos', {external_reference: Number(merchantOrder.external_reference)}, dataUpdatePedido)
+        let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: Number(merchantOrder.external_reference)},{ $push: { estados: {date: Date.now(), msg: estado } } })
+
+        let response3 = await mongoDb.updateDocuments('notificacionesMp', {_id: new ObjectId(String(notificacion._id))}, {open:true})
+
+        return 'ok'
+}
+
 // let res = postWebhookTest('17408624596')
 // console.log(  )
 // postMPgetBuscarPreferences()
@@ -184,6 +224,7 @@ module.exports = {
                 let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: Number(merchantOrder.external_reference)},{ $push: { estados: {date: Date.now(), msg: estado } } })
 
                 res.json({ status:200, response1, resultDb2 })
+                // return 'ok'
         }
 
 
@@ -197,6 +238,47 @@ module.exports = {
             resDB: resDB.reverse()
         })
     },
+
+    abrirNotificacionesMp: async (req, res, next) =>{
+
+        let notificacionesMp = await mongoDb.findDocuments('notificacionesMp')
+        let respuesta = {
+            notificacionesMp
+        }
+        await notificacionesMp.forEach( async notificacion => {
+
+            if ( !notificacion.open) {
+                
+                switch (notificacion.topic) { // llega payment o merchant_order
+                    
+                    case "payment":
+                        await postMPgetpayments(Number(notificacion.queryId)).then( async dataPayment => {
+                            await postMPgetmerchant_orders(Number(dataPayment.order.id)).then( async dataMerchant => {
+                                // merchant_order = dataMerchant
+                                await calculatePaidAmount(dataMerchant, notificacion)
+                            })
+                        })
+                        break;
+                        
+                    case "merchant_order":
+                        await postMPgetmerchant_orders(Number(notificacion.queryId)).then( async dataMerchant => {
+                            // merchant_order = data
+                            await calculatePaidAmount(dataMerchant, notificacion)
+                        })
+                        break;
+                            
+                }
+            }
+
+        })
+
+        setTimeout(() => {
+            next()
+          }, 2000);
+        
+        // return respuesta
+
+    }
 
 }
 // postMPgetpayments(75629374702).then(data => console.log( data ))

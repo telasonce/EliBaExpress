@@ -6,10 +6,12 @@ const pedidosApiController = require('../controllers/api/pedidosApiController');
 
 const permisosMiddleware = require('../middlewares/permisosMiddleware.js')
 
+const mercadoPagoApiController = require('../controllers/api/mercadoPagoApiController')
+
 
 router.get('/carrito', pedidosController.carrito);
 // router.get('/misPedidos', pedidosController.carrito);
-router.get('/detalle/:idPedido', pedidosController.detallePedido);
+router.get('/detalle/:idPedido', mercadoPagoApiController.abrirNotificacionesMp, pedidosController.detallePedido);
 router.get('/admin', permisosMiddleware, pedidosController.adminPedidos);
 
 // Api pedidos

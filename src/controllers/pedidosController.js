@@ -12,6 +12,7 @@ async function resultdbTest() {
 }
 // resultdbTest()
 
+const mercadoPagoApiController = require('../controllers/api/mercadoPagoApiController')
 
 module.exports = {
     carrito: async(req, res) => {
@@ -24,6 +25,10 @@ module.exports = {
         res.render('pedidos/adminPedidos', { user:req.session.userLogged, pedidos })
     },
     detallePedido: async(req, res) => {
+
+        // actualizo y leo las notificaciones
+        // let resNotifi = await mercadoPagoApiController.abrirNotificacionesMp()
+        //     console.log(resNotifi)
         let idPedido = String(req.params.idPedido)
         let external_reference = Number(req.query.externalReference)
         let user = req.session.userLogged
