@@ -53,7 +53,7 @@ async function postWebhookTest(id = 1, topic='merchant_order') {
         console.log(error)
         return error }
 }
-// let res = postWebhookTest('17400551237')
+// let res = postWebhookTest('17408624596')
 // console.log(  )
 // postMPgetBuscarPreferences()
 // postMPgetObtenerPreferencia('1321815010-033748f4-4290-4d25-88cf-557a8cdf8d27')
@@ -112,9 +112,14 @@ module.exports = {
             body: req.body,
             url:req.url
         }
-        let resDB = await mongoDb.insertDocuments('testWebhooks', [data])
+        // data.num = 1
+        //  await mongoDb.insertDocuments('testWebhooks', [data])
+        // data.num = 2
+        //  await mongoDb.insertDocuments('testWebhooks', [data])
+        // data.num = 3
+        //  await mongoDb.insertDocuments('testWebhooks', [data])
 
-        // Arranca
+        // Arranca 
         let merchant_order = null;
         // let estados = []
          switch (req.query.topic) { // llega payment o merchant_order
@@ -123,7 +128,7 @@ module.exports = {
                 await postMPgetpayments(Number(req.query.id)).then( async dataPayment => {
                     await postMPgetmerchant_orders(Number(dataPayment.order.id)).then( async dataMerchant => {
                         merchant_order = dataMerchant
-                        let resDB = await mongoDb.insertDocuments('testWebhooks', [{ dataMerchant }]) //test
+                        // let resDB = await mongoDb.insertDocuments('testWebhooks', [{ dataMerchant }]) //test
                          await calculatePaidAmount(merchant_order)
                         })
                     })
@@ -132,7 +137,7 @@ module.exports = {
             case "merchant_order":
                 await postMPgetmerchant_orders(Number(req.query.id)).then( async data => {
                     merchant_order = data
-                    let resDB = await mongoDb.insertDocuments('testWebhooks', [{ dataMerchant }]) //test
+                    // let resDB = await mongoDb.insertDocuments('testWebhooks', [{ data }]) //test
                     await calculatePaidAmount(merchant_order)
                     })
                 break;
