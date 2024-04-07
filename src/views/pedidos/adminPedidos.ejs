@@ -11,7 +11,7 @@
     <h1 class="text-center">Administrar Pedidos</h1>
 <% pedidos.forEach(pedido => { %>
  <div>
-    <p><%= pedido.emailUser %> <a href="/pedidos/detalle/<%= pedido._id %>" target="_blank">Ver</a> </p>
+    <p><%= pedido.emailUser %> <a href="/pedidos/detalle/<%= pedido._id %>" target="_blank">Ver</a> <%= pedido.statusPago %> </p>
  </div>
 <% }) %>
 

@@ -33,7 +33,7 @@ async function postWebhookTest(id = 1, topic='merchant_order') {
         console.log(error)
         return error }
 }
-// let res = postWebhookTest(Number('17350124118'))
+// let res = postWebhookTest(Number('75678153324'), 'payment')
 // console.log( res)
 
 module.exports = {
@@ -88,7 +88,7 @@ module.exports = {
         let data = {
             query: req.query,
             body: req.body,
-
+            url:req.url
         }
         let resDB = await mongoDb.insertDocuments('testWebhooks', [data])
 
@@ -99,7 +99,7 @@ module.exports = {
 
             case "payment":
                 await postMPgetpayments(Number(req.query.id)).then( async dataPayment => {
-                    await postMPgetmerchant_orders(dataPayment.order.id).then( async dataMerchant => {
+                    await postMPgetmerchant_orders(Number(dataPayment.order.id)).then( async dataMerchant => {
                         merchant_order = dataMerchant
                          await calculatePaidAmount(merchant_order)
                         })
