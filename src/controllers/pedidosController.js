@@ -25,7 +25,7 @@ module.exports = {
     },
     detallePedido: async(req, res) => {
         let idPedido = String(req.params.idPedido)
-        let external_reference = Number(req.query.external_reference)
+        let external_reference = Number(req.query.externalReference)
         let user = req.session.userLogged
         let pedidos
         if (idPedido != '0') {

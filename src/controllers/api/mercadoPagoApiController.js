@@ -33,7 +33,7 @@ async function postWebhookTest(id = 1, topic='merchant_order') {
         console.log(error)
         return error }
 }
-// let res = postWebhookTest(Number('75678153324'), 'payment')
+// let res = postWebhookTest(Number('17406571248'))
 // console.log( res)
 
 module.exports = {
@@ -57,11 +57,11 @@ module.exports = {
               }
             ],
             "back_urls": {
-                "success": "http://localhost:3000/pedidos/detalle/0?external_reference="+external_reference,
-                "failure": "http://localhost:3000/pedidos/detalle/0?external_reference="+external_reference,
-                "pending": "http://localhost:3000/pedidos/detalle/0?external_reference="+external_reference
+                "success": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference,
+                "failure": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference,
+                "pending": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference
             },
-            "notification_url": "https://elibaexpress.com.ar/api/webhooks?source_news=ipn",
+            "notification_url": "https://elibaexpress.com.ar/api/webhooks",
             "statement_descriptor": "EliBaExpress",
             "external_reference": external_reference,
             "binary_mode": true,
