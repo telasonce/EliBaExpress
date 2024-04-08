@@ -64,7 +64,9 @@ if (btnCancelarPedido) {
 // btnWhAnunciarCambios  link al whatsapp
 let linkWhAnunciarCambios = 'https://wa.me/5491130201084/?text='+  encodeURIComponent(location.href +'\n\nHola EliBaExpress!!\nEste es mi pedido, pueden llamarme para coordinar detalles.\nGracias!')
 btnWhAnunciarCambios.setAttribute("href", linkWhAnunciarCambios)
-btnWhAnunciarCambios2.setAttribute("href", linkWhAnunciarCambios)
+if (btnWhAnunciarCambios2) {   
+    btnWhAnunciarCambios2.setAttribute("href", linkWhAnunciarCambios)
+}
 
 // guardar comentario y bloquear btn si fue enviado,
 if (formEnviarComentario) {
