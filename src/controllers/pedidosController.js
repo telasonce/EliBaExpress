@@ -12,7 +12,7 @@ async function resultdbTest() {
 }
 // resultdbTest()
 
-const mercadoPagoApiController = require('../controllers/api/mercadoPagoApiController')
+// const mercadoPagoApiController = require('../controllers/api/mercadoPagoApiController')
 
 module.exports = {
     carrito: async(req, res) => {
@@ -23,6 +23,18 @@ module.exports = {
         let pedidos = await mongoDb.findDocuments('pedidos')
 
         res.render('pedidos/adminPedidos', { user:req.session.userLogged, pedidos })
+    },
+    misPedidos: async(req, res) => {
+        let user = req.session.userLogged
+        let pedidos
+        let message
+        if (user) {
+            pedidos = await mongoDb.findDocuments('pedidos', {emailUser: user.email})
+        } else {
+            message = 'Debe Iniciar Sesion para ver sus pedidos'
+        }
+        res.render('pedidos/misPedidos', { user:req.session.userLogged, pedidos, message })
+
     },
     detallePedido: async(req, res) => {
 

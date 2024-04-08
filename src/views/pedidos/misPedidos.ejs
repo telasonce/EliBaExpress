@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head') %>
+
+    <title>Mis Pedidos - EliBaExpress</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <h1 class="text-center">Mis Pedidos</h1>
+
+    <section class="d-flex flex-wrap justify-content-center">
+
+        <% pedidos.reverse().forEach(pedido => { %>
+
+
+        <article class="fondoGradient  m-2" style="max-width: 320px;">
+            <div class="ms-3 d-flex align-content-around flex-wrap h-100" >
+                <div class="">
+                    <h6 class="mb-1">Pedido <i class="me-1"><%= pedido.external_reference %></i></h6>
+                    <h5 class="mb-2"><%= pedido.emailUser %> </h5>
+                </div>
+                <div>
+                    <div class="d-flex align-items-center justify-content-around"><p class="mb-2">Pedido realizado </p><i class="ms-3" id="datePedidoCreatedAt"> <%= pedido.createdAt %> </i> </div>
+                    <p class="my-2">Actualizado <i class="ms-2" id="datePedidoUpdatedAt"> <%= pedido.updatedAt %> </i> </p>
+                </div>
+                <div>
+                    <p class="mb-1 mt-3">Monto total del pedido: <i class="me-1">$<%= pedido.totalPedido %></i></p>
+                    <p class="mb-1 ">Total Items: <i class="me-1"> <%= pedido.pedido.map(item=>{ return item.cantidad }).reduce((total, numero) => { return total + numero; }, 0) %></i></p>
+                </div>
+                <div class="my-2">
+                    <p class="mb-1">Total pagado: <i class="ms-2"> $<%= pedido.pagos.map(item=>{ return item.status == 'approved' ?  item.pago : 0 }).reduce((total, numero) => { return total + numero; }, 0) %> </i> </p>
+                    <p class="mb-2 d-inline me-4">Estado del pago: </p>
+                        <span class="badge text-bg-success <%= pedido.statusPago == 'aprobado' || pedido.statusPago == 'paid' ? '' : 'd-none' %> ">Aprobado</span>
+                        <span class="badge text-bg-warning <%= pedido.statusPago == 'pendiente' || pedido.statusPago == 'payment_required' ? '' : 'd-none' %> ">Pendiente</span>
+                        <span class="badge text-bg-danger <%= pedido.statusPago == 'cancelado' || pedido.statusPago == 'reverted' ? '' : 'd-none' %> ">Cancelado</span>
+                        <span class="badge text-bg-danger <%= pedido.statusPago == 'rechazado' || pedido.statusPago == 'reverted' ? '' : 'd-none' %>">Rechazado</span>
+                        <span class="badge text-bg-danger <%= pedido.statusPago == 'devolucion' || pedido.statusPago == 'reverted' ? '' : 'd-none' %>">Devolución</span>
+                </div>
+                <div class="mt-2">
+                    <p class="mb-1">Último Estado del pedido: </p>
+                    <% if(pedido.estados.reverse()[0]){ %>
+                        <small class="mb-2 ms-0 fs-6"><i class="ms-1" id="dateEstado"><%= pedido.estados.reverse()[0].date %> </i> - <%= pedido.estados.reverse()[0].msg %></small>            
+                    <% } %>
+                    <!-- <p class="mb-2 ms-0"> <i class="ms-1"> ( 22/1 10:20 hs. )</i> - Esperando Pago</p> -->
+                </div>
+                <div class="m-2">
+                    <!-- <button class="btn btn-primary">Ver Pedido</button> -->
+                    <a class="btn btn-primary btn-sm" href="/pedidos/detalle/<%= pedido._id %>" target="_blank">Ver Pedido</a>
+                    <% if (pedido.isCancelled) { %>
+                        <button class="btn btn-danger btn-sm" disabled> Pedido Cancelado</button>
+                    <% } %>
+                </div>
+            </div>
+        </article>
+        <% }) %>
+    </section>
+            <!-- moment -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/locale/es-mx.min.js" integrity="sha512-xDkjENZG+aLSnyKKVe8hFVXGnxSUXZmTHifRsaaGhRhFpEhLJTksMuqB/9zQHJ3xYwG0JAhFi0a6eG41n1I6/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+    <script src="/js/misPedidos.js"></script>
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

@@ -85,7 +85,14 @@ pedidos: [
         }
     ],
     totalPedido,
-    pagos:[],
+    pagos:[
+        {
+            id: payment.id,
+            pago: payment.transaction_amount,
+            fecha: payment.date_approved,
+            status: payment.status
+        }
+    ],
     idUser,
     emailUser,
     datosEnvio:[],
@@ -93,7 +100,8 @@ pedidos: [
     statusPago:'', //payment_required o reverted o paid
     PREFERENCE_ID:'',
     external_reference:09809809,
-    merchant_order_id:878798
+    merchant_order_id:878798,
+    isCancelled: false 
 ]
 
 -- tabla colores

@@ -19,6 +19,7 @@ async function postMPgetpayments(id = 1) {
 async function postMPgetmerchant_orders(id = 1) {
     try { const response = await axios.get('https://api.mercadopago.com/merchant_orders/' + Number(id), {
             headers: { 'Authorization': 'Bearer ' + process.env.AccessToken_MercadoPago } });
+            console.log(response.data)
             return response.data
     } catch (error) { return error }
 }
@@ -62,12 +63,13 @@ async function calculatePaidAmount(merchantOrder, notificacion) {
     let estado = ''
     let statusPago = merchantOrder.order_status //payment_required o reverted o paid
     await merchantOrder.payments.forEach(payment => {
+        pagos.push({
+            id: payment.id,
+            pago: payment.transaction_amount,
+            fecha: payment.date_approved,
+            status: payment.status
+        })
         if (payment.status == 'approved') {
-            pagos.push({
-                id: payment.id,
-                pago: payment.transaction_amount,
-                fecha: payment.date_approved
-            })
             totalPagado += payment.transaction_amount;
         }
     });
@@ -86,17 +88,30 @@ async function calculatePaidAmount(merchantOrder, notificacion) {
             merchant_order_id: merchantOrder.id
         }
         let response1 = await mongoDb.updateDocuments('pedidos', {external_reference: Number(merchantOrder.external_reference)}, dataUpdatePedido)
-        let resultDb2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: Number(merchantOrder.external_reference)},{ $push: { estados: {date: Date.now(), msg: estado } } })
+        let resDBPedido = await mongoDb.findDocuments('pedidos', {external_reference: Number(merchantOrder.external_reference)})
+        if (resDBPedido.length >= 1 && resDBPedido[0].estados[resDBPedido[0].estados.length -1].msg != estado) {
+            console.log(resDBPedido[0].estados, resDBPedido[0].estados[resDBPedido[0].estados.length -1] , estado)
+            let response2 = await mongoDb.updateDocumentsLibre('pedidos',{external_reference: Number(merchantOrder.external_reference)},{ $push: { estados: {date: Date.now(), msg: estado } } })
+        }
 
         let response3 = await mongoDb.updateDocuments('notificacionesMp', {_id: new ObjectId(String(notificacion._id))}, {open:true})
 
-        return 'ok'
+        Promise.all([response1, resDBPedido, response3]).then(
+            (values) => {
+                console.log(values);
+                return 'ok'
+            },
+            (reason) => {
+              console.log(reason);
+            },
+          );
 }
 
-// let res = postWebhookTest('17408624596')
+// let res = postWebhookTest('17411401521')
 // console.log(  )
 // postMPgetBuscarPreferences()
 // postMPgetObtenerPreferencia('1321815010-033748f4-4290-4d25-88cf-557a8cdf8d27')
+// postMPgetmerchant_orders(17411401521)
 
 module.exports = {
     crearPreferenciaId: async(external_reference, totalPedido) => {
@@ -190,19 +205,20 @@ module.exports = {
         //         break;
         // }
 
-        async function calculatePaidAmount(merchantOrder) {
+        async function calculatePaidAmount(merchantOrder) { //sin uso
             let pagos = []
             let totalPagado = 0
             let msg = ''
             let estado = ''
-            let statusPago = merchantOrder.order_status //payment_required o reverted o paid
+            let statusPago = merchantOrder.order_status //payment_required o reverted o paid o partially_reverted o partially_paid o payment_in_process o undefined o expired
             await merchantOrder.payments.forEach(payment => {
+                pagos.push({
+                    id: payment.id,
+                    pago: payment.transaction_amount,
+                    fecha: payment.date_approved,
+                    status: payment.status
+                })
                 if (payment.status == 'approved') {
-                    pagos.push({
-                        id: payment.id,
-                        pago: payment.transaction_amount,
-                        fecha: payment.date_approved
-                    })
                     totalPagado += payment.transaction_amount;
                 }
             });
@@ -245,7 +261,11 @@ module.exports = {
         let respuesta = {
             notificacionesMp
         }
-        await notificacionesMp.forEach( async notificacion => {
+        for (let index = 0; index < notificacionesMp.length; index++) {
+            const notificacion = notificacionesMp[index];
+            
+        
+        // await notificacionesMp.forEach( async notificacion => {
 
             if ( !notificacion.open) {
                 
@@ -270,8 +290,8 @@ module.exports = {
                 }
             }
 
-        })
-
+        // })
+        }
         setTimeout(() => {
             next()
           }, 2000);

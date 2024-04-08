@@ -165,4 +165,43 @@ module.exports = {
 
 
     },
+    cancelarPedido: async(req,res) => {
+        let idpedido = String(req.body.idpedido)
+        try {
+            let response = await mongoDb.updateDocuments('pedidos', {_id: new ObjectId(idpedido)}, {isCancelled: true})
+            res.json({status:'ok', message:'Pedido Cancelado', response})
+            
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
+        }
+    },
+
+    guardarComentario: async(req,res) => {
+        let idpedido = String(req.body.idpedido)
+        let comentario = req.body.comentario
+        try {
+            let pedidos = await mongoDb.findDocuments('pedidos', {_id: new ObjectId(idpedido)})
+            let response2
+            if (pedidos.length > 0 && pedidos[0].comentarios.length < 3) {
+                 response2 = await mongoDb.updateDocumentsLibre('pedidos',{_id: new ObjectId(idpedido)},{ $push: { comentarios: {comentario } } })
+                 res.json({status:'ok', message:'comentario guardado en el Pedido ', response2, body:req.body})
+                } else {
+                res.json({status:'error', message:'Envie comentarios por otro medio', response2, body:req.body})
+            }
+            
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
+        }
+    },
+    guardarDatosDeEnvio: async(req,res) => {
+        let idpedido = String(req.body.idpedido)
+        let data = req.body.data
+        try {
+            let response = await mongoDb.updateDocuments('pedidos',{_id: new ObjectId(idpedido)}, {datosEnvio:data}  )
+            res.json({status:'ok', message:'Datos guardados correctamente', body:req.body, response})
+            
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
+        }
+    },
 }
