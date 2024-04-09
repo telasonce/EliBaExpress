@@ -12,6 +12,7 @@ var loading = `  <span class="spinner-border spinner-border-sm" aria-hidden="tru
 
 
 let btnModalIngresar = document.querySelector('#btnModalIngresar')
+let btnModalIngresarFixed = document.querySelector('#btnModalIngresarFixed')
 let divFormIngresar = document.querySelector('#divFormIngresar')
 let btncerrar = document.querySelector('#btncerrar')
 let btnCerrar2 = document.querySelector('#btnCerrar2')
@@ -41,6 +42,9 @@ let btnNewPassword = document.querySelector('#btnNewPassword')
 // divFormIngresar.classList.add('d-block') // se abre al ingresar
 
 btnModalIngresar.addEventListener('click', async e =>{
+    divFormIngresar.classList.add('d-block')
+})
+btnModalIngresarFixed.addEventListener('click', async e =>{
     divFormIngresar.classList.add('d-block')
 })
 btncerrar.onclick = ( e =>{

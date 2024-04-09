@@ -26,11 +26,11 @@
                     <p class="my-2">Actualizado <i class="ms-2" id="datePedidoUpdatedAt"> <%= pedido.updatedAt %> </i> </p>
                 </div>
                 <div>
-                    <p class="mb-1 mt-3">Monto total del pedido: <i class="me-1">$<%= pedido.totalPedido %></i></p>
-                    <p class="mb-1 ">Total Items: <i class="me-1"> <%= pedido.pedido.map(item=>{ return item.cantidad }).reduce((total, numero) => { return total + numero; }, 0) %></i></p>
+                    <p class="mb-0 mt-3">Monto total del pedido: <i class="me-1">$<%= pedido.totalPedido %></i></p>
+                    <p class="mb-1 text-center">Total Items: <i class="me-1"> <%= pedido.pedido.map(item=>{ return item.cantidad }).reduce((total, numero) => { return total + numero; }, 0) %></i></p>
                 </div>
-                <div class="my-2">
-                    <p class="mb-1">Total pagado: <i class="ms-2"> $<%= pedido.pagos.map(item=>{ return item.status == 'approved' ?  item.pago : 0 }).reduce((total, numero) => { return total + numero; }, 0) %> </i> </p>
+                <div class="my-2 text-end">
+                    <p class="mb-0">Total pagado: <i class="ms-2"> $<%= pedido.pagos.map(item=>{ return item.status == 'approved' ?  item.pago : 0 }).reduce((total, numero) => { return total + numero; }, 0) %> </i> </p>
                     <p class="mb-2 d-inline me-4">Estado del pago: </p>
                         <span class="badge text-bg-success <%= pedido.statusPago == 'aprobado' || pedido.statusPago == 'paid' ? '' : 'd-none' %> ">Aprobado</span>
                         <span class="badge text-bg-warning <%= pedido.statusPago == 'pendiente' || pedido.statusPago == 'payment_required' ? '' : 'd-none' %> ">Pendiente</span>

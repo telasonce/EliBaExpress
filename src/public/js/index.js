@@ -161,19 +161,27 @@ function renderizarCardsImagenes(products, sectionId) {
             newA.href = `/products/detail/${ product._id }/?t=${ product.titulo.replaceAll(' ', '-').replaceAll('/','-') }`
             newA.style = "text-decoration: none; color: black;"
             newA.target = "_blank"
-            newA.innerHTML = `<h6>${product.titulo}</h6>
-            `
+            newA.innerHTML = `<h6>${product.titulo}</h6>`
             
             product.ganancias.forEach( forma  => {
                 if (forma.activo) {
                     
                     newA.innerHTML += `
-                    <p class="card-text mb-1 ms-3 text-secondary fs-6 fw-lighter"> -- <i> ${forma.forma}</i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
+                    <p class="card-text mb-0 ms-3 text-secondary fs-6 fw-lighter"> -- <i> ${forma.forma}</i> <svg style="color:#c6538c;" aria-hidden="true" height="10" viewBox="0 0 16 16" version="1.1" width="10" data-view-component="true" class="octicon octicon-dot-fill mr-2">
                     <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
                     </svg> <b>${ forma.precio } </b></p>
                     `
                 }
             })
+            let disponibleOnline = 0
+            product.stock && product.stock.length > 0 && product.stock.map(stock=>{
+                stock.disponibilidad.map(disponibilidad=>{
+                    disponibilidad.isActive ? disponibleOnline += 1 : null
+                })
+            })
+            if (disponibleOnline > 0) {
+                newA.innerHTML += `<div class="text-end ms-auto" style="max-width:fit-content"><p class="fondoGradient p-1">✅ Disponible Compra OnLine</p></div>`
+            }
             newA.innerHTML += `<br>`
             section.appendChild (newA)
         }

@@ -69,7 +69,7 @@ async function getColoresFetch() {
         sectionArt.classList.add('mx-auto', 'my-3', 'fondoGradient')
         sectionArt.style.width = '20cm'
         sectionArt.innerHTML += `
-            <p class="text-decoration-underline fw-bold" id="PtituloProducto" >${product.titulo}</p>
+        <a href="/products/detail/${ product._id }/?t=${ product.titulo.replaceAll(' ', '-').replaceAll('/','-') }" target="_blank" class="text-warning"><p class="text-decoration-underline fw-bold" id="PtituloProducto" >${product.titulo}</p></a>
             <div>
                 
                 <article>
