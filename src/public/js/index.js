@@ -148,7 +148,7 @@ function renderizarCardsImagenes(products, sectionId) {
     }
 
 
-    function renderizarPrecios(products, sectionId) {
+    async function renderizarPrecios(products, sectionId) {
 
       let section = document.querySelector('#'+sectionId)
       section.innerHTML = ''
@@ -174,8 +174,8 @@ function renderizarCardsImagenes(products, sectionId) {
                 }
             })
             let disponibleOnline = 0
-            product.stock && product.stock.length > 0 && product.stock.map(stock=>{
-                stock.disponibilidad.map(disponibilidad=>{
+            product.stock && product.stock.length > 0 && await product.stock.map( async stock=>{
+                await stock.disponibilidad.map(disponibilidad=>{
                     disponibilidad.isActive ? disponibleOnline += 1 : null
                 })
             })
