@@ -134,9 +134,9 @@ module.exports = {
               }
             ],
             "back_urls": {
-                "success": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference,
-                "failure": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference,
-                "pending": "http://localhost:3000/pedidos/detalle/0?externalReference="+external_reference
+                "success": "https://elibaexpress.com.ar/pedidos/detalle/0?externalReference="+external_reference,
+                "failure": "https://elibaexpress.com.ar/pedidos/detalle/0?externalReference="+external_reference,
+                "pending": "https://elibaexpress.com.ar/pedidos/detalle/0?externalReference="+external_reference
             },
             "notification_url": "https://elibaexpress.com.ar/api/webhooks", //source_news=ipn
             "statement_descriptor": "EliBaExpress",

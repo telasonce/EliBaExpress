@@ -12,7 +12,7 @@
           <div class="input-group my-1">
             <span class="input-group-text p-1" style="width: 38px; height: 38px;"><a href="/"><img src="/img/logo/EliBaExpress-logo-E.png" alt="E" class="w-100"></a></span>
 
-            <input type="search" class="form-control" placeholder="Buscar"  name="q" value="<%= locals.querySearch && querySearch || '' %>">
+            <input type="search" style="max-width: 5cm;" class="form-control" placeholder="Buscar"  name="q" value="<%= locals.querySearch && querySearch || '' %>">
             <button class="btn btn-outline-success btn-sm" type="submit" id="btnBuscadorHeader">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
@@ -55,27 +55,20 @@
           </ul>
         
           <% if(locals.user && user.isAdmin){ %>
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
-            
-            <hr>
-            <li class="nav-item">
-              <a class="nav-link cursor-pointer " href="#" id="btnAbrirModalNewProduct">Nueva Publicación</a>
+          <ul class="navbar-nav ms-auto me-1 mb-2 mb-lg-0 ">
+            <li class="nav-item dropdown dropstart">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Administrar
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="/products/admin" target="_blank">Administrar Publicaciones </a></li>
+                <li><a class="dropdown-item" href="/products/admin/adminStockProducts" target="_blank">Administrar Stock Publicaciones </a></li>
+                <li><a class="dropdown-item" href="/pedidos/admin" target="_blank">Administrar Pedidos </a></li>
+                <li><a class="dropdown-item" target="_blank" href="/admin/administrarUsuarios">Permisos</a></li>
+                <li><a class="dropdown-item cursor-pointer " href="#" id="btnAbrirModalNewProduct">Nueva Publicación</a></li>
+              </ul>
             </li>
             <%- include('./formNewProduct') %>
-
-            
-            <li class="nav-item">
-              <a class="nav-link" href="/products/admin" target="_blank">Administrar Publicaciones </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/products/admin/adminStockProducts" target="_blank">Administrar Stock Publicaciones </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/pedidos/admin" target="_blank">Administrar Pedidos </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" target="_blank" href="/admin/administrarUsuarios">Permisos</a>
-            </li>
           </ul>
           <% } %>
 
@@ -87,6 +80,21 @@
     <nav class="text-end" style="position: fixed; top:90px;right: 10px; z-index: 10;">
       <section class="d-flex justify-content-end" >
   
+        <div class="rounded-pill   m-1 position-relative text-center" style="border: rgb(18, 188, 18) solid 2px; background: white;" >
+          <a href="" id="btnWh3ArribaHeader" target="_blank" class="text-success text-center p-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-whatsapp m-1" viewBox="0 0 16 16">
+              <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+            </svg>
+          </a>
+          <span class="position-absolute top-0 start-0 translate-middle p-2 bg-success border border-light rounded-circle">
+              <span class="visually-hidde"></span>
+            </span>
+        </div>
+        <script type="text/javascript">
+          let linkWhHeader = 'https://wa.me/5491130201084/?text='+  encodeURIComponent(location.href +'\n\nHola EliBaExpress!!\nQuiero que me llamen para conocerlos y comprar.\nGracias!')
+          document.querySelector('#btnWh3ArribaHeader').setAttribute("href", linkWhHeader)
+        </script>
+
         <div class="rounded-pill  p-1 m-1 iconoCarrito position-relative" >
           <a href="/pedidos/carrito" target="_blank" class="text-light ">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
