@@ -9,6 +9,7 @@ const permisosMiddleware = require('../middlewares/permisosMiddleware.js')
 router.get('/', mainController.index);
 router.get('/admin/administrarUsuarios', permisosMiddleware, mainController.administrarUsuarios);
 router.get('/perfil', mainController.perfil);
+router.get('/admin/resumenBusquedas', permisosMiddleware, mainController.resumenBusquedas);
 // router.get('/contacto', mainController.index);
 
 module.exports = router; 

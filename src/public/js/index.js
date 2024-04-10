@@ -10,9 +10,12 @@ let btnBuscadorHeader = document.querySelector('#btnBuscadorHeader')
     formBuscadorHeader.addEventListener('submit', e=>{
         e.preventDefault()
         let querySearch = e.target.elements['q'].value
-        console.log(findProductsToOrder(querySearch, products))
-        
+        // console.log(findProductsToOrder(querySearch, products))
         renderizarCards(findProductsToOrder(querySearch, products), 'resultadosBusqueda', 'orden')
+        
+        if (querySearch.length > 1) {   
+            guardarQueryBusquedaFetch(querySearch) // guarda en db la busqueda
+        }
 
     })
     btnBuscadorHeader.click() //busca desde el principio
@@ -25,7 +28,7 @@ async function getProductsFetch() {
     try {
         const response = await fetch("/api/products/getAllProductsActive");
         const jsonResponse = await response.json();
-        console.log(jsonResponse);
+        // console.log(jsonResponse);
         if (jsonResponse.status == 'ok') {
             return jsonResponse.data
         } else {
@@ -34,6 +37,25 @@ async function getProductsFetch() {
         
     } catch (error) {
         return 'error'
+    }
+  }
+
+  async function guardarQueryBusquedaFetch(queryBusqueda) {
+
+    try {
+        const res = await fetch( '/api/guardarQueryBusqueda', {
+            method: 'POST', 
+            body: JSON.stringify({queryBusqueda}),  
+            headers: {  "Content-Type": "application/json" },
+          });
+    
+        const resData = await res.json();
+
+        // console.log(resData)
+        return resData
+    } catch (error) {
+        console.log(error)
+        return error
     }
   }
 

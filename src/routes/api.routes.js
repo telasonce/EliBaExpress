@@ -8,6 +8,7 @@ const productsApiController = require('../controllers/api/productsApiController'
 const usersApiController = require('../controllers/api/usersApiController');
 const coloresApiController = require('../controllers/api/coloresApiController.js');
 const mercadoPagoApiController = require('../controllers/api/mercadoPagoApiController.js');
+const busquedasApiController = require('../controllers/api/busquedasApiController.js');
 
 // Api    registro, login y recuperar password
 router.post('/apiLogin', loginApiController.apiLogin);
@@ -48,6 +49,10 @@ router.post('/colores/admin/delete', permisosMiddleware, coloresApiController.de
 // api mercado pago
 router.post('/webhooks', mercadoPagoApiController.webhookIpn);
 router.get('/testWebhooks', mercadoPagoApiController.testWebhooks);
+
+// api guardar Query Busqueda
+router.post('/guardarQueryBusqueda', busquedasApiController.guardarQueryBusqueda);
+router.get('/getBusquedas', busquedasApiController.getBusquedas);
 
 
 

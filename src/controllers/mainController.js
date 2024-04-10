@@ -8,7 +8,7 @@ const ObjectId = require('mongodb').ObjectId;
 async function resultdbTest() {
     // console.log( await ( mongoDb.insertDocuments('users',[{nombre:'david', apellido:'chami'},{nombre:'jose',apellido:'chami'}] ) ) )
     // console.log( await mongoDb.updateDocuments('users',{nombre:'david'}, {nombre:'Moshe David'}) )
-    // console.log( await ( mongoDb.deleteDocuments('users',{_id: new ObjectId("65c42882880b48b20af66fbe")}) ) )
+    // console.log( await ( mongoDb.deleteDocuments('colores',{_id: new ObjectId("66171bfb4e237dc59bd7bac9")}) ) )
     console.log( await mongoDb.findDocuments('users') )
     console.log( await mongoDb.finalizarConexion() )
 }
@@ -38,6 +38,12 @@ module.exports = {
             res.cookie('message' , 'Por favor Inicia Sesión', {expire : 30 * 1000 }); // 30 segs
             res.redirect('/')
         }
+    },
+
+    resumenBusquedas: async(req, res) => {
+        let busquedas = await mongoDb.findDocuments('busquedas')
+
+        res.render('admin/busquedas', { busquedas, user:req.session.userLogged})
     },
 
     

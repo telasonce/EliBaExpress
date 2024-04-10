@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../partials/head') %>
+
+    <title>Busquedas - EliBaExpress</title>
+    <meta name="description" content="Comprá productos a precios imbatibles, retiralos en nuestra tienda o recibilos en tu domicilio.">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "image": "https://elibaexpress.com.ar/img/logo/EliBaExpress-logo.png",
+        "url": "https://elibaexpress.com.ar/",
+        "logo": "https://elibaexpress.com.ar/img/logo/EliBaExpress-logo.png",
+        "name": "EliBaExpress",
+        "description": "Comprá productos a precios imbatibles, retiralos en nuestra tienda o recibilos en tu domicilio.",
+        "email": "elibaexpress@gmail.com",
+        "telephone": "+5491130201084",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Corrientes 2095",
+          "addressLocality": "Ciudad autonoma de Buenos Aires",
+          "addressCountry": "AR",
+          "addressRegion": "Buenos Aires",
+          "postalCode": "1045"
+        }
+      }
+      </script>
+
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <% busquedas.forEach( busqueda => { %>
+     <p class="border border-2 rounded p-2 m-2 d-inline"><%= busqueda.q %></p>
+    <% }) %>
+
+    <!-- <script src="/js/index.js"></script> -->
+    <%- include('../partials/footer') %>
+
+</body>
+</html>
