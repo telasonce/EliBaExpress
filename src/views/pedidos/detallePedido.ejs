@@ -52,7 +52,16 @@
     </article>
     <article class="fondoGradient  m-2" style="max-width: 320px;">
         <div >
-            <div class="ms-2">
+            <div class="ms-2 position-relative">
+                <% if (pedido.merchant_order_id && String(pedido.merchant_order_id).length >= 3) { %>
+                <button idpedido="<%= pedido._id %>" id="btnVerificarMerchantOrder" class="btn btn-sm btn-outline-light position-absolute top-0 end-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                    </svg>
+                </button>
+                <% } %>
+                <% // console.log(pedido, String(pedido.merchant_order_id).length) %>
                 <p class="mb-1 mt-3">Monto total del pedido: <i class="me-1">$<%= pedido.totalPedido %></i></p>
                 <p class="mb-2">Total pagado: <i class="ms-2"> $
                     <% total = 0
@@ -76,7 +85,7 @@
                 <div class="mt-2">
                     <p class="mb-1">Pagos: </p>
                     <% pedido.pagos.forEach( pago  => { %>
-                        <small class="mb-2 ms-0 fs-6"><i class="ms-1" id="datePago"><%= pago.fecha %></i> - $<%= pago.pago %> - <%= pago.status %></small>
+                        <small class="mb-2 ms-0 fs-6"><i class="ms-1" id="datePago"><%= pago.fecha %></i> - $<%= pago.pago %> <%= pago.status %></small>
                     <% }) %>
                 </div>
                 

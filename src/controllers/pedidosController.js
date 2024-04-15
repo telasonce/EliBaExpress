@@ -21,8 +21,17 @@ module.exports = {
     },
     adminPedidos: async(req, res) => {
         let pedidos = await mongoDb.findDocuments('pedidos')
-
-        res.render('pedidos/adminPedidos', { user:req.session.userLogged, pedidos })
+        let arrayPedidos = []
+        // eliminar pedidos si pasaron 10 dias, isCancelled ,statusPago not paid
+        for (let index = 0; index < pedidos.length; index++) {
+            const pedido = pedidos[index];
+            if (pedido.isCancelled && pedido.statusPago != 'paid' && ( Date.now() - pedido.createdAt > 432000000)) {
+                 await ( mongoDb.deleteDocuments('pedidos',{_id: new ObjectId( String(pedido._id) )}) ) 
+            } else {
+                arrayPedidos.push(pedido)
+            }
+        }
+        res.render('pedidos/adminPedidos', { user:req.session.userLogged, pedidos:arrayPedidos })
     },
     misPedidos: async(req, res) => {
         let user = req.session.userLogged

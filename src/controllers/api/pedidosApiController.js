@@ -204,4 +204,23 @@ module.exports = {
             res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
         }
     },
+
+    verficarMerchantOrder: async(req,res) => {
+        let idpedido = String(req.body.idpedido)
+        try {
+            let pedidos = await mongoDb.findDocuments('pedidos',{_id: new ObjectId(idpedido)} )
+            if (pedidos.length > 0) {
+                let data = {
+                    queryId:pedidos[0].merchant_order_id, topic:'merchant_order', open: false
+                }
+                let resDb = await mongoDb.insertDocuments('notificacionesMp', [data])
+                res.json({status:'ok', message:'Notificacion guardada correctamente', body:req.body, resDb})
+            } else {
+                res.json({status:'error', message:'Pedido no encontrado', body:req.body})
+            }
+            
+        } catch (error) {
+            res.json({ message:'Error: '+error.message, status:'error', data: error, body:req.body })
+        }
+    },
 }

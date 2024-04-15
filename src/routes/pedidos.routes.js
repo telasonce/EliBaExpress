@@ -17,7 +17,7 @@ router.get('/admin', permisosMiddleware, mercadoPagoApiController.abrirNotificac
 // Api pedidos
 router.post('/api/verificarCarrito', pedidosApiController.verificarCarrito);
 router.post('/api/realizarPedido', pedidosApiController.realizarPedido);
-// router.post('/api/actualizar/', pedidosApiController.carrito);
+router.post('/api/verficarMerchantOrder/', pedidosApiController.verficarMerchantOrder);
 router.post('/api/actualizar/cancelar', pedidosApiController.cancelarPedido);
 router.post('/api/actualizar/guardarComentario', pedidosApiController.guardarComentario);
 router.post('/api/actualizar/datosDeEnvio', pedidosApiController.guardarDatosDeEnvio);

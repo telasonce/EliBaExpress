@@ -8,6 +8,7 @@ let formEnviarComentario = document.querySelector('#formEnviarComentario')
 let btnWhAnunciarCambios = document.querySelector('#btnWhAnunciarCambios')
 let btnWhAnunciarCambios2 = document.querySelector('#btnWhAnunciarCambios2')
 let formDatosDeEnvio = document.querySelector('#formDatosDeEnvio')
+let btnVerificarMerchantOrder = document.querySelector('#btnVerificarMerchantOrder')
 let datesEstados = document.querySelectorAll('#dateEstado')
 let datesPagos = document.querySelectorAll('#datePago')
 
@@ -20,7 +21,8 @@ for (let index = 0; index < datesEstados.length; index++) {
 }
 for (let index = 0; index < datesPagos.length; index++) {
     const datePago = datesPagos[index];
-    datePago.innerHTML = '('+ moment( (datePago.innerHTML) ).format('l LT') + ')'
+    datePago.innerHTML =  moment( (datePago.innerHTML) ).format('l LT')
+    // datePago.innerHTML = '('+ moment( (datePago.innerHTML) ).format('l LT') + ')'
 }
 // moment.locale()
 // console.log( moment(  Number(IpedidoRealizado.innerHTML) ).format('l') )
@@ -137,6 +139,42 @@ if (formDatosDeEnvio) {
             console.log(error)
             e.target.querySelector('button').innerHTML = 'Reintentar Guardar Datos'
             e.target.querySelector('button').disabled = false 
+        }
+        
+    })
+}
+
+// btn verficar merchant order
+if (btnVerificarMerchantOrder) {
+    
+    btnVerificarMerchantOrder.addEventListener('click', async e=>{
+        e.preventDefault()
+        e.target.innerHTML = loading
+        // let idpedido = e.target.attributes.idpedido.value
+        let idpedido = window.location.pathname.split('/')[3]
+        // let idpedido = e.attributes
+        // console.log(e)
+        // console.log(e.target.attributes.idpedido.value)
+        // return 
+        try {
+            const res = await fetch( '/pedidos/api/verficarMerchantOrder', {
+                method: 'POST', 
+                body: JSON.stringify({idpedido}),  
+                headers: {  "Content-Type": "application/json" },
+            });
+            
+            const resData = await res.json();
+            console.log(resData)
+            if(resData.status == 'ok'){
+                e.target.innerHTML = '✅'
+                window.location.reload()
+            }
+        } catch (error) {
+            console.log(error)
+            e.target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                                </svg>`
         }
         
     })
